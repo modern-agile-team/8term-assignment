@@ -1,3 +1,4 @@
+//김서방
 function solution(seoul) {
     let answer = '';
     for(let i=0; i<seoul.length;i++)
