@@ -13,4 +13,4 @@ function solution(s) {
   });
   return arr.join("");
 }
-console.log(solution(s));
+console.log(solution(s)); //감사합니다아!!!!!!!!!
