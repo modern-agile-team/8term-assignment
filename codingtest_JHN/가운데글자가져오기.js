@@ -1,4 +1,3 @@
-const s = "appleeee";
 function solution(s) {
   const arr = s.split("");
   if (arr.length % 2 === 1) {
@@ -8,5 +7,3 @@ function solution(s) {
     return s.substr(arr.length / 2 - 1, 2);
   }
 }
-
-console.log(solution(s));

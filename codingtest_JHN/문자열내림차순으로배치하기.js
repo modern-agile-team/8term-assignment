@@ -3,7 +3,6 @@
 const des = b.sort((x,y)=>(y - x));
 console.log(des);
 */
-const s = "Zbcdefg";
 function solution(s) {
   const arr = s.split(""); //문자열을 나눠서 각각 분석
   arr.sort(function (a, b) {
@@ -13,4 +12,3 @@ function solution(s) {
   });
   return arr.join("");
 }
-console.log(solution(s)); //감사합니다아!!!!!!!!!
