@@ -1,22 +1,15 @@
 function solution(answers) {
+  function Dork(id, answer, count) {
+    this.id = id;
+    this.answer = answer;
+    this.count = count;
+  }
+  let dork1 = new Dork(1, [1, 2, 3, 4, 5], 0);
+  let dork2 = new Dork(2, [2, 1, 2, 3, 2, 4, 2, 5], 0);
+  let dork3 = new Dork(3, [3, 3, 1, 1, 2, 2, 4, 4, 5, 5], 0);
+  let arr = [dork1, dork2, dork3];
   let result = [];
   let max;
-  let dork1 = {
-    id: 1,
-    answer: [1, 2, 3, 4, 5],
-    count: 0,
-  };
-  let dork2 = {
-    id: 2,
-    answer: [2, 1, 2, 3, 2, 4, 2, 5],
-    count: 0,
-  };
-  let dork3 = {
-    id: 3,
-    answer: [3, 3, 1, 1, 2, 2, 4, 4, 5, 5],
-    count: 0,
-  };
-  let arr = [dork1, dork2, dork3];
 
   arr.map((key) => {
     for (let i = 0, j = 0; true; i++, j++) {
