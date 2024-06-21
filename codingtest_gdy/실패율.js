@@ -8,7 +8,7 @@ function solution(N, stages) {
     count[i] = stages.filter((val) => val === i + 1).length;
   }
   //count는 실패한 사람 수
-  console.log(count);
+
   for (let i = 0; i < N; i++) {
     if (count[i]) {
       failureRate[i] = count[i] / stageLength;
