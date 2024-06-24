@@ -9,7 +9,7 @@ function SetValue(val, id) {
 
 //계산하기(메인)함수
 function main() {
-  const val = GetValue("input");
+  const val = exit(GetValue("input"));
   let result = MulDiv(val);
   result = Number(AddSub(result));
 
@@ -58,4 +58,11 @@ function AddSub(val) {
     }
   }
   return value.join("");
+}
+function exit(val) {
+  if (val === "exit") {
+    alert("종료되었습니다.");
+  } else {
+    return val;
+  }
 }
