@@ -1,4 +1,4 @@
-//6일차
+//6일차 과제
 function solution(n, lost, reserve) {
   let chack = [];
   lost.sort((a, b) => a - b);
@@ -37,6 +37,6 @@ function solution(n, lost, reserve) {
     chack[n - 1]--;
     chack[n - 2]++;
   }
-  //1모두 더하기 if 2
+  //1모두 더하기 if 2면 1더하기
   return chack.reduce((a, c) => (c > 1 ? a + 1 : a + c), 0);
 }

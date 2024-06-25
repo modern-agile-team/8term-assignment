@@ -1,3 +1,4 @@
+//6일 과제
 function solution(answers) {
   function Dork(id, answer, count) {
     this.id = id;
