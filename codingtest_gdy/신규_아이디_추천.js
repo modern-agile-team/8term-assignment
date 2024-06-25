@@ -1,8 +1,8 @@
 function solution(new_id) {
-  new_id = new_id.toLowerCase(); //1단계
+  newId = new_id.toLowerCase(); //1단계
   const regex6 = /.{15}/;
   const regex2 = /[^a-z0-9-_.]+/g;
-  let str1 = new_id.replace(regex2, ""); //2단계 소문자, 숫자, -, _, .만 남기고 제거
+  let str1 = newId.replace(regex2, ""); //2단계 소문자, 숫자, -, _, .만 남기고 제거
   str1 = str1.replace(/\.{2,}/g, "."); // 3단계
   str1 = str1.replace(/^\.|\.$/g, ""); // 4단계
   if (str1.length === 0) {
