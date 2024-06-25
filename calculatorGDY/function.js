@@ -74,6 +74,3 @@ function exception(val) {
     alert("문자는 입력할 수 없습니다.");
   }
 }
-let r = MulDiv("1.4/0");
-r = AddSub(r);
-console.log(r);
