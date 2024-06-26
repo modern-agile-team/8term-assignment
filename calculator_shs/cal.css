@@ -1,0 +1,20 @@
+* {
+  font-family: HY견고딕;
+}
+p {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+input {
+  text-align: center;
+  width: 300px;
+  height: 50px;
+  font-size: 30px;
+}
+
+button {
+  text-align: center;
+  width: 50px;
+  height: 55px;
+}
