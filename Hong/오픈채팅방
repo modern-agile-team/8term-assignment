@@ -1,0 +1,24 @@
+//11일차 과제
+function solution(record) {
+  let answer = [];
+  let users = {};
+
+  for (let log of record) {
+    let [action, id, nickname] = log.split(" ");
+    if ("Enter" === action || "Change" === action) {
+      users[id] = nickname;
+    }
+  }
+
+  for (let log of record) {
+    let [action, id, nickname] = log.split(" ");
+
+    if ("Enter" === action) {
+      answer.push(`${users[id]}님이 들어왔습니다.`);
+    }
+    if ("Leave" === action) {
+      answer.push(`${users[id]}님이 나갔습니다.`);
+    }
+  }
+  return answer;
+}
