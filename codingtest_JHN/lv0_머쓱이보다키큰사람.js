@@ -8,3 +8,9 @@ function solution(array, height) {
   }
   return result;
 }
+// 방법2 : filter 사용하기
+function solution(array, height) {
+  let answer = 0;
+  answer = array.filter((item) => item > height);
+  return answer.length;
+}
