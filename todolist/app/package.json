@@ -4,7 +4,8 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "mysql2": "^3.10.1",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "promise": "^8.3.0"
   },
   "name": "todolist",
   "version": "1.0.0",

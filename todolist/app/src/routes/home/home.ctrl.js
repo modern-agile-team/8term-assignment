@@ -2,20 +2,22 @@
 const ListStorage = require("../../models/ListStorage");
 
 const output = {
-  home: (req, res) => {
-    res.render("home/index");
+  home: async (req, res) => {
+    const list = await ListStorage.getListInfo();
+    console.log(list);
+    res.render("home/index", { data: JSON.stringify(list) });
   },
 };
 
 const process = {
-  crudController: (req, res) => {
+  crudController: async (req, res) => {
     const crud = req.body.id;
+    const text = req.body.text;
     if (crud === "add") {
-      ListStorage.saveInfo(req.body.text);
-      ListStorage.getListInfo();
+      await ListStorage.saveInfo(text);
       return res.json({
         success: true,
-        text: req.body.text,
+        text: text,
       });
     }
   },
