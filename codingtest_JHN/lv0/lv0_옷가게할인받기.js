@@ -1,3 +1,4 @@
+//1. if - elseif - else
 function solution(price) {
   let answer = price;
   if (price >= 100000 && price < 300000) {
@@ -15,3 +16,17 @@ function solution(price) {
 
   return answer;
 }
+//2. 이중배열 / 화살표함수 이용 
+const discounts = {
+    [500000, 20],
+    [300000, 10],
+    [100000, 5],
+}
+const solution = (price) => {
+    for (const discount of discounts)
+        if (price >= discount[0])
+            return Math.floor(price - price * discount[1] / 100)
+    return price;
+}
+
+
