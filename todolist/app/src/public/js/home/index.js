@@ -4,8 +4,10 @@ const addBtn = document.querySelector("#add");
 addBtn.addEventListener("click", add);
 
 function add() {
+  const text = document.querySelector("#text");
   const req = {
     id: addBtn.id,
+    text: text.value,
   };
   fetch("/", {
     method: "POST",
@@ -15,5 +17,9 @@ function add() {
     body: JSON.stringify(req),
   })
     .then((res) => res.json())
-    .then(console.log);
+    .then((res) => {
+      if (res.success) {
+        console.log(res.text);
+      }
+    });
 }

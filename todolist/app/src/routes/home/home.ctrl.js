@@ -1,13 +1,5 @@
 "use strict";
-
-//임시 데이터베이스---- id : doyoon psword : 1234
-const list = {
-  id: 1,
-  description: "공중제비",
-  is_check: 1, //0이면 체크하도록
-  in_date: "2024-06-28",
-};
-//임시 데이터베이스 ------
+const ListStorage = require("../../models/ListStorage");
 
 const output = {
   home: (req, res) => {
@@ -19,9 +11,11 @@ const process = {
   crudController: (req, res) => {
     const crud = req.body.id;
     if (crud === "add") {
+      ListStorage.saveInfo(req.body.text);
+      ListStorage.getListInfo();
       return res.json({
         success: true,
-        crud: "c",
+        text: req.body.text,
       });
     }
   },

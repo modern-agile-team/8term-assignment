@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/js/home/index.js" defer></script>
+    <script src="/js/home/index.ctrl.js" defer></script>
+
     <title>Document</title>
   </head>
   <body>
@@ -12,11 +14,15 @@
         <td><h2>to do list</h2></td>
       </tr>
       <tr>
-        <td align="Right">
+        <td><input type="text" id="text" /></td>
+        <td>
           <button id="add">+</button>
-          <hr />
         </td>
       </tr>
+      <tr>
+        <td><hr /></td>
+      </tr>
     </table>
+    <table id="list"></table>
   </body>
 </html>
