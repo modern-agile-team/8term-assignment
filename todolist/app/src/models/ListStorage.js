@@ -17,7 +17,7 @@ class ListStorage {
     return new Promise((resolve, reject) => {
       const sql = "SELECT * FROM list";
       const today = db.query(sql, [text, 1], (err, data) => {
-        if (err) reject(err);
+        if (err) reject(err); //에러 Object타입 나중에 수정
         resolve(data);
       });
     });

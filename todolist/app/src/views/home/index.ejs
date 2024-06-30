@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/js/home/index.js" defer></script>
-    <!--<script src="/js/home/index.ctrl.js" defer></script>-->
-
+    <script src="/js/home/index.ctrl.js" defer></script>
     <title>Document</title>
   </head>
   <body>
@@ -23,10 +22,20 @@
         <td><hr /></td>
       </tr>
     </table>
-    <table id="list" align="center"></table>
 
-    <tr>
-      <td><%=JSON.parse(data) %></td>
-    </tr>
+    <!--나중에 수정하기 -->
+    <table id="list" align="center">
+      <%for(let i = 0; i< data.length; i++){ %>
+      <tr>
+        <td align="center">
+          <center>
+            <input type="checkbox" /><%=data[i].description%>
+            <button id="<%`edit${i}`%>">수정</button> <button>삭제</button>
+            <hr width="200px" />
+          </center>
+        </td>
+      </tr>
+      <% }%>
+    </table>
   </body>
 </html>
