@@ -4,10 +4,12 @@ const addBtn = document.querySelector("#add"),
 
 addBtn.addEventListener("click", add);
 
-function is_check(check) {
+function updateList(val) {
   const req = {
-    crud: check.type,
-    id: check.id,
+    crud: "update",
+    id: val.id,
+    column: val.name,
+    value: val.checked ? 0 : 1, //체크되어있다면 값으로 0을 보내고 아님 1을 보낸다 반댓값을 보내기
   };
   fetch("/", {
     method: "POST",

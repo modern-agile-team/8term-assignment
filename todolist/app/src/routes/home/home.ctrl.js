@@ -46,6 +46,10 @@ const process = {
       }
 
       if (crud === "update") {
+        const id = req.body.id,
+          column = req.body.column;
+        if (column === "is_check") {
+        }
       }
     } catch (err) {
       return { success: false, msg: err };

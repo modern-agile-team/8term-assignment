@@ -1,6 +1,7 @@
 "use strict";
 
 const db = require("../config/db");
+
 class ListStorage {
   static saveInfo(text) {
     return new Promise((resolve, reject) => {
@@ -24,6 +25,16 @@ class ListStorage {
   }
 
   static deleteList(id) {
+    return new Promise((resolve, reject) => {
+      const sql = "DELETE FROM list WHERE id = ?";
+      db.query(sql, [id], (err) => {
+        if (err) reject(err);
+        resolve({ success: true });
+      });
+    });
+  }
+
+  static updateList(id, column) {
     return new Promise((resolve, reject) => {
       const sql = "DELETE FROM list WHERE id = ?";
       db.query(sql, [id], (err) => {

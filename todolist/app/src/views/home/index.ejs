@@ -30,7 +30,7 @@
         <tr>
           <td>
             <center>
-              <input type="checkbox" id="<%=data[i].id%>%>" onClick="is_check(this)"/><%if(data[i].is_check){%><%=data[i].description%><%}%>
+              <input type="checkbox" id="<%=data[i].id%>%>" name = "is_check" onClick="updateList(this)" <%= data[i].is_check ? '' : 'checked' %>/><%if(data[i].is_check){%><%=data[i].description%><%}%>
               <a id="<%=data[i].id%>%>">[수정]</a>
               <a id="<%=data[i].id%>" name="delete" onClick="deleteList(this)">
               [삭제]
