@@ -8,7 +8,7 @@ function InputValue() {
     let text = document.getElementById("text").value; //id가 text인 input태그의 value를 text 변수에 저장
     let numberAndOperator = text.match(/[0-9]+|(\*|\/|\+|\-)/g); //각 숫자와 문자를 나누고 배열에 저장
     console.log(numberAndOperator);
-    calculate(numberAndOperator); // 계산함수로 ㄱㄱ
+    calculate(numberAndOperator); // 계산함수로
   }
 }
 
