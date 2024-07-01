@@ -1,8 +1,17 @@
 "use strict";
 const addBtn = document.querySelector("#add"),
-  list = document.querySelector("#list");
+  list = document.querySelector("#list"),
+  text = document.querySelector("#text");
 
-addBtn.addEventListener("click", add);
+addBtn.addEventListener("click", addList);
+text.addEventListener("keypress", (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    addList();
+  }
+});
+
+function editMod() {}
 
 function updateText(val) {
   const id = val.id;
@@ -73,8 +82,7 @@ function deleteList(tag) {
     });
 }
 
-function add() {
-  const text = document.querySelector("#text");
+function addList() {
   const req = {
     text: text.value,
   };

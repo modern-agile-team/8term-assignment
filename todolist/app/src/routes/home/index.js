@@ -4,8 +4,12 @@ const express = require("express");
 const ctrl = require("./home.ctrl");
 
 const router = express.Router();
-router.get("/", ctrl.output.home);
-router.post("/", ctrl.process.addList);
-router.delete("/", ctrl.process.deleteList);
-router.patch("/", ctrl.process.updateList);
+
+router
+  .route("/")
+  .get(ctrl.output.home)
+  .post(ctrl.process.addList)
+  .delete(ctrl.process.deleteList)
+  .patch(ctrl.process.updateList);
+
 module.exports = router;
