@@ -6,7 +6,7 @@ class ListStorage {
     return new Promise((resolve, reject) => {
       const sql =
         "INSERT INTO list(description,is_check,in_date) VALUES(?,?,NOW())";
-      const today = db.query(sql, [text, 1], (err) => {
+      db.query(sql, [text, 1], (err) => {
         if (err) reject(err);
         resolve({ success: true });
       });
@@ -16,9 +16,19 @@ class ListStorage {
   static getListInfo(text) {
     return new Promise((resolve, reject) => {
       const sql = "SELECT * FROM list";
-      const today = db.query(sql, [text, 1], (err, data) => {
+      db.query(sql, [text, 1], (err, data) => {
         if (err) reject(err); //에러 Object타입 나중에 수정
         resolve(data);
+      });
+    });
+  }
+
+  static deleteList(id) {
+    return new Promise((resolve, reject) => {
+      const sql = "DELETE FROM list WHERE id = ?";
+      db.query(sql, [id], (err) => {
+        if (err) reject(err);
+        resolve({ success: true });
       });
     });
   }

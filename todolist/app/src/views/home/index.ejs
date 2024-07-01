@@ -15,7 +15,7 @@
       <tr>
         <td><input type="text" id="text" /></td>
         <td>
-          <button id="add">+</button>
+          <a id="add">[예쁜 + 버튼]</a>
         </td>
       </tr>
       <tr>
@@ -23,19 +23,25 @@
       </tr>
     </table>
 
-    <!--나중에 수정하기 -->
-    <table id="list" align="center">
-      <%for(let i = 0; i< data.length; i++){ %>
-      <tr>
-        <td align="center">
-          <center>
-            <input type="checkbox" /><%=data[i].description%>
-            <button id="<%`edit${i}`%>">수정</button> <button>삭제</button>
-            <hr width="200px" />
-          </center>
-        </td>
-      </tr>
-      <% }%>
-    </table>
+    <!--나중에 수정하기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+    <form id="list">
+      <table align="center">
+        <%for(let i = 0; i < data.length; i++){ %>
+        <tr>
+          <td>
+            <center>
+              <input type="checkbox" id="<%=data[i].id%>%>" onClick="is_check(this)"/><%if(data[i].is_check){%><%=data[i].description%><%}%>
+              <a id="<%=data[i].id%>%>">[수정]</a>
+              <a id="<%=data[i].id%>" name="delete" onClick="deleteList(this)">
+              [삭제]
+              </button>
+              <hr width="200px" />
+            </center>
+          </td>
+        </tr>
+        <%}%>
+        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+      </table>
+    </form>
   </body>
 </html>
