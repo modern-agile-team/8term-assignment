@@ -7,52 +7,55 @@ const output = {
       const list = await ListStorage.getListInfo();
       res.render("home/index", { data: list });
     } catch (err) {
-      return { success: false, msg: err };
+      return res.json({ success: false, msg: err });
     }
   },
 };
 
 const process = {
-  crudController: async (req, res) => {
+  deleteList: (req, res) => {
     try {
-      const crud = req.body.crud;
-      if (crud === "add") {
-        const text = req.body.text;
-        ///text가 없을때 리턴해주는 부분
-        if (text === "") {
-          return res.json({
-            success: false,
-            msg: "아무것도 입력하지 않았습니다.",
-          });
-        }
-        //------------------------
-
-        //saveinfo메소드 호출하고 true리턴
-        await ListStorage.saveInfo(text);
+      const id = req.body.id;
+      ListStorage.deleteList(id);
+      return res.json({
+        success: true,
+      });
+    } catch (err) {
+      return res.Json({ success: false, msg: err });
+    }
+  },
+  addList: (req, res) => {
+    try {
+      const text = req.body.text;
+      if (text === "") {
         return res.json({
-          success: true,
+          success: false,
+          msg: "아무것도 입력하지 않았습니다.",
         });
       }
-      //--------------------
-
-      if (crud === "delete") {
-        //id를 얻어와서 delete에 보내고 true 리턴
-        const id = req.body.id;
-        ListStorage.deleteList(id);
-        return res.json({
-          success: true,
-        });
-        //--------------------------------
-      }
-
-      if (crud === "update") {
+      ListStorage.saveInfo(text);
+      return res.json({ success: true });
+    } catch (err) {
+      return res.Json({ success: false, msg: err });
+    }
+  },
+  updateList: (req, res) => {
+    try {
+      const col = req.body.column;
+      if (col === "is_check") {
         const id = req.body.id,
-          column = req.body.column;
-        if (column === "is_check") {
-        }
+          value = req.body.value;
+        ListStorage.updateCheck(id, value);
+        return res.json({ success: true });
+      }
+      if (col === "description") {
+        const id = req.body.id,
+          value = req.body.value;
+        ListStorage.updateText(id, value);
+        return res.json({ success: true });
       }
     } catch (err) {
-      return { success: false, msg: err };
+      return res.Json({ success: false, msg: err });
     }
   },
 };

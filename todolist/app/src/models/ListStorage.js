@@ -34,10 +34,20 @@ class ListStorage {
     });
   }
 
-  static updateList(id, column) {
+  static updateCheck(id, value) {
     return new Promise((resolve, reject) => {
-      const sql = "DELETE FROM list WHERE id = ?";
-      db.query(sql, [id], (err) => {
+      const sql = "UPDATE list SET is_check = ? WHERE id = ?";
+      db.query(sql, [value, id], (err) => {
+        if (err) reject(err);
+        resolve({ success: true });
+      });
+    });
+  }
+
+  static updateText(id, value) {
+    return new Promise((resolve, reject) => {
+      const sql = "UPDATE list SET description = ? WHERE id = ?";
+      db.query(sql, [value, id], (err) => {
         if (err) reject(err);
         resolve({ success: true });
       });

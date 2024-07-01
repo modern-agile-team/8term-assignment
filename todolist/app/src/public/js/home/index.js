@@ -4,28 +4,17 @@ const addBtn = document.querySelector("#add"),
 
 addBtn.addEventListener("click", add);
 
-function updateList(val) {
+function updateText(val) {
+  const id = val.id;
+  const textTag = document.querySelector(`#text${val.id}`);
   const req = {
-    crud: "update",
-    id: val.id,
-    column: val.name,
-    value: val.checked ? 0 : 1, //체크되어있다면 값으로 0을 보내고 아님 1을 보낸다 반댓값을 보내기
+    id: id,
+    column: textTag.name,
+    value: textTag.value,
   };
+
   fetch("/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(req),
-  });
-}
-function deleteList(tag) {
-  const req = {
-    crud: tag.name,
-    id: tag.id,
-  };
-  fetch("/", {
-    method: "POST",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
@@ -35,6 +24,51 @@ function deleteList(tag) {
     .then((res) => {
       if (res.success) {
         list.submit();
+      } else {
+        alert(res.msg);
+      }
+    });
+}
+
+function updateCheck(val) {
+  const req = {
+    id: val.id,
+    column: val.name,
+    value: val.checked ? "0" : "1", //체크되어있다면 값으로 0을 보내고 아님 1을 보낸다 반댓값을 보내기
+  };
+  fetch("/", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.success) {
+        list.submit();
+      } else {
+        alert(res.msg);
+      }
+    });
+}
+function deleteList(tag) {
+  const req = {
+    id: tag.id,
+  };
+  fetch("/", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.success) {
+        list.submit();
+      } else {
+        alert(res.msg);
       }
     });
 }
@@ -42,7 +76,6 @@ function deleteList(tag) {
 function add() {
   const text = document.querySelector("#text");
   const req = {
-    crud: addBtn.id,
     text: text.value,
   };
   fetch("/", {
