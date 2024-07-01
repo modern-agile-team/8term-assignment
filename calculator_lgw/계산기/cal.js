@@ -7,7 +7,6 @@ function InputValue() {
     //exit 가 아닐때
     let text = document.getElementById("text").value; //id가 text인 input태그의 value를 text 변수에 저장
     let numberAndOperator = text.match(/[0-9]+|(\*|\/|\+|\-)/g); //각 숫자와 문자를 나누고 배열에 저장
-    console.log(numberAndOperator);
     calculate(numberAndOperator); // 계산함수로
   }
 }
@@ -18,15 +17,11 @@ function calculate(nAO) {
   while (i < nAO.length) {
     // *와 - 먼저 연산
     if (nAO[i] === "*") {
-      // * 가 있다면.
-      newNum = multiply(nAO[nAO.indexOf("*") - 1], nAO[nAO.indexOf("*") + 1]); //nAO에서 연산자의 왼쪽숫자와 오른쪽숫자를 argument로 보내겠다
-      nAO.splice(nAO.indexOf("*") - 1, 3, newNum);
+      newNum = multiply(nAO);
       continue; // 연산했다면 다시 처음부터 순회
     }
     if (nAO[i] === "/") {
-      // / 가 있다면.
-      newNum = divide(nAO[nAO.indexOf("/") - 1], nAO[nAO.indexOf("/") + 1]);
-      nAO.splice(nAO.indexOf("/") - 1, 3, newNum);
+      newNum = divide(nAO);
       continue;
     }
     i += 2; // 다음 연산자 검사
@@ -36,20 +31,15 @@ function calculate(nAO) {
   while (i < nAO.length) {
     // +와 - 연산
     if (nAO[i] === "+") {
-      // + 가 있다면.
-      newNum = plus(nAO[nAO.indexOf("+") - 1], nAO[nAO.indexOf("+") + 1]);
-      nAO.splice(nAO.indexOf("+") - 1, 3, newNum);
+      newNum = plus(nAO);
       continue;
     }
     if (nAO[i] === "-") {
-      // - 가 있다면.
-      newNum = minus(nAO[nAO.indexOf("-") - 1], nAO[nAO.indexOf("-") + 1]);
-      nAO.splice(nAO.indexOf("-") - 1, 3, newNum);
+      newNum = minus(nAO);
       continue;
     }
     i += 2; // 다음 연산자 검사
   }
-  console.log(nAO);
   printMessage(newNum);
 }
 
@@ -65,23 +55,31 @@ function programEnd() {
   alert("종료");
 }
 
-function multiply(left, right) {
-  newNum = Number(left) * Number(right);
+function multiply(nAO) {
+  newNum =
+    Number(nAO[nAO.indexOf("*") - 1]) * Number(nAO[nAO.indexOf("*") + 1]); //nAO에서 연산자의 왼쪽숫자와 오른쪽숫자
+  nAO.splice(nAO.indexOf("*") - 1, 3, newNum);
   return newNum;
 }
 
-function divide(left, right) {
-  newNum = Number(left) / Number(right);
+function divide(nAO) {
+  newNum =
+    Number(nAO[nAO.indexOf("/") - 1]) / Number(nAO[nAO.indexOf("/") + 1]); //nAO에서 연산자의 왼쪽숫자와 오른쪽숫자
+  nAO.splice(nAO.indexOf("/") - 1, 3, newNum);
   return newNum;
 }
 
-function plus(left, right) {
-  newNum = Number(left) + Number(right);
+function plus(nAO) {
+  newNum =
+    Number(nAO[nAO.indexOf("+") - 1]) + Number(nAO[nAO.indexOf("+") + 1]); //nAO에서 연산자의 왼쪽숫자와 오른쪽숫자
+  nAO.splice(nAO.indexOf("+") - 1, 3, newNum);
   return newNum;
 }
 
-function minus(left, right) {
-  newNum = Number(left) - Number(right);
+function minus(nAO) {
+  newNum =
+    Number(nAO[nAO.indexOf("-") - 1]) - Number(nAO[nAO.indexOf("-") + 1]); //nAO에서 연산자의 왼쪽숫자와 오른쪽숫자
+  nAO.splice(nAO.indexOf("-") - 1, 3, newNum);
   return newNum;
 }
 
