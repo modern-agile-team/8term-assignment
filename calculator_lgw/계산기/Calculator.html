@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: white; color: black">
+    <p style="font-size: 50px; font-weight: bold">Geonwoo Calculator</p>
+    <p style="font-size: 20px; font-weight: bold">
+      계산식을 입력해 주십시오 (예시: 1 + 2 | 종료 : exit).
+    </p>
+    <p style="font-size: 20px; font-weight: 550">
+      * 소수점 둘째자리 까지 계산됩니다.
+    </p>
+    <form>
+      <label for="text"> </label>
+      <input value="" type="text" id="text" name="text" style="height: 19px" />
+      <input
+        type="button"
+        value="입력"
+        style="font-weight: bold; height: 26px"
+        onclick="InputValue()"
+      />
+      <!-- type이 submit이면 안됨 -->
+    </form>
+
+    <div id="printNumber"></div>
+    <!-- js 파일 연결 -->
+    <script type="text/javascript" src="cal.js"></script>
+    <!-- js 파일 연결 -->
+  </body>
+</html>
