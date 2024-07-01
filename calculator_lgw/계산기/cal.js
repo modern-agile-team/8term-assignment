@@ -2,7 +2,7 @@ function InputValue() {
   // 입력버튼 누를때 동작
   if (document.getElementById("text").value === "exit") {
     //id가 text인 input태그의 value로 exit가 입력 됐을때
-    programEnd(); //종료함수로 ㄱㄱ
+    programEnd(); //종료함수로
   } else {
     //exit 가 아닐때
     let text = document.getElementById("text").value; //id가 text인 input태그의 value를 text 변수에 저장
