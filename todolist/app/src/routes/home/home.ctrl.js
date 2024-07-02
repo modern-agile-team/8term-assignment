@@ -2,13 +2,16 @@
 const ListStorage = require("../../models/ListStorage");
 
 const output = {
-  home: async (req, res) => {
+  home: (req, res) => {
     try {
-      const list = await ListStorage.getListInfo();
-      res.render("home/index", { data: list });
+      res.render("home/index.ejs");
     } catch (err) {
       return res.json({ success: false, msg: err });
     }
+  },
+  loadList: async (req, res) => {
+    const list = await ListStorage.getListInfo();
+    return res.json({ success: true, data: list });
   },
 };
 
@@ -41,14 +44,14 @@ const process = {
   },
   updateList: (req, res) => {
     try {
-      const col = req.body.column;
-      if (col === "is_check") {
+      const column = req.body.col;
+      if (column === "check") {
         const id = req.body.id,
           value = req.body.value;
         ListStorage.updateCheck(id, value);
         return res.json({ success: true });
       }
-      if (col === "description") {
+      if (column === "description") {
         const id = req.body.id,
           value = req.body.value;
         ListStorage.updateText(id, value);

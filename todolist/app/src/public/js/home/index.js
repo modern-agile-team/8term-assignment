@@ -4,6 +4,7 @@ const addBtn = document.querySelector("#add"),
   text = document.querySelector("#text");
 
 addBtn.addEventListener("click", addList);
+
 text.addEventListener("keypress", (event) => {
   if (event.keyCode === 13) {
     event.preventDefault();
@@ -11,15 +12,11 @@ text.addEventListener("keypress", (event) => {
   }
 });
 
-function editMod() {}
-
-function updateText(val) {
-  const id = val.id;
-  const textTag = document.querySelector(`#text${val.id}`);
+function updateText(id, value) {
   const req = {
     id: id,
-    column: textTag.name,
-    value: textTag.value,
+    col: "description",
+    value: value,
   };
 
   fetch("/", {
@@ -42,7 +39,7 @@ function updateText(val) {
 function updateCheck(val) {
   const req = {
     id: val.id,
-    column: val.name,
+    col: "check",
     value: val.checked ? "0" : "1", //체크되어있다면 값으로 0을 보내고 아님 1을 보낸다 반댓값을 보내기
   };
   fetch("/", {
@@ -61,9 +58,9 @@ function updateCheck(val) {
       }
     });
 }
-function deleteList(tag) {
+function deleteList(id) {
   const req = {
-    id: tag.id,
+    id: id,
   };
   fetch("/", {
     method: "DELETE",

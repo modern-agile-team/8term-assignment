@@ -11,5 +11,5 @@ router
   .post(ctrl.process.addList)
   .delete(ctrl.process.deleteList)
   .patch(ctrl.process.updateList);
-
+router.get("/load", ctrl.output.loadList);
 module.exports = router;

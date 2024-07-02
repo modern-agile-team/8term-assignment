@@ -22,30 +22,10 @@
       </tr>
     </table>
     <hr>
-    <!--나중에 수정하기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-      <table align="center">
-        <%for(let i = 0; i < data.length; i++){ %>
-        <tr>
-          <td>
-            <center>
-              <input type="checkbox" id="<%=data[i].id%>%>" name = "is_check" onClick="updateCheck(this)"
-              <%= data[i].is_check ? '' : 'checked' %>/>
-             
-              <%if(data[i].is_check){%>
-                <%=data[i].description%>
-                <%}else{%>
-                <strike><%=data[i].description%></strike>
-                  <%}%>
-              <a id="<%=i%>"" name ="update" onClick ="updateText(this)">[수정]</a>
-              <!--나중에 수정 누르면 칸 나오고 확인 눌러야 업데이트 되도록 수정하기 -->
-              <a id="<%=data[i].id%>" name="delete" onClick="deleteList(this)">
-              [삭제]
-              <hr/>
-            </center>
-          </td>
-        </tr>
-        <%}%>
-        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+    <div id ="todolist">
+      <tr>
+      </tr>
+    </div>
       </table>
     </form>
   </body>
