@@ -3,7 +3,6 @@ function solution(dartResult) {
   let str = [];
   let save = 0;
   let sum = [];
-  let sum2 = 0;
   str = dartResult.match(/(\d.[*#]|\d\d.[*#]|\d\d.|\d.)/g);
 
   let loop = str.length;
