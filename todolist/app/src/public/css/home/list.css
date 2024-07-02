@@ -1,3 +1,16 @@
+/*폰트바꾸기*/
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+.list-text {
+  font-family: "Pretendard-Regular";
+  color: black;
+}
+
 /* ---------- GENERAL ---------- */
 
 body {
@@ -18,16 +31,11 @@ form {
   width: 400px;
 }
 /* ---------- To-Do-List ---------- */
-.input1 {
-  height: 20px;
-  border: none;
-  background-color: transparent; /* 배경을 투명하게 설정 */
-}
-.input1:focus {
-  outline: none; /* 포커스 시 테두리 없앰 */
-}
+
 .button {
   font-size: 40px;
+  background-color: transparent;
+  border: none;
 }
 .section {
   width: 100%;
@@ -35,4 +43,40 @@ form {
   position: relative;
   margin: 0;
   font-size: 0px;
+}
+/*체크되어있을때 속성*/
+.Cancellation-line {
+  text-decoration: line-through;
+  color: lightsteelblue;
+}
+/*input 칸*/
+.inputadd {
+  border: none;
+  width: 350px;
+  height: 30px;
+}
+.inputadd:focus {
+  outline: none; /* 포커스 시 테두리 없앰 */
+}
+
+.input1 {
+  height: 20px;
+  width: 250px;
+  border: none;
+  background-color: transparent; /* 배경을 투명하게 설정 */
+}
+.input1:focus {
+  outline: none; /* 포커스 시 테두리 없앰 */
+}
+/*addlist 밑에 줄 hr*/
+.underline {
+  margin-top: 0;
+  margin-bottom: 20px;
+  width: 380px;
+  height: 1px;
+  border: 0;
+  background-color: rgba(134, 134, 134, 0.751);
+}
+/*list의 한칸 클릭했을때 hover*/
+.td-list {
 }

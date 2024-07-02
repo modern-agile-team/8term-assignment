@@ -4,29 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/js/home/index.js" defer></script>
-    <script src="/js/home/index.ctrl.js" defer></script>
-    <link rel="stylesheet" href="/css/home/list.css">
+    <!--<script src="/js/home/index.ctrl.js" defer></script>-->
+    <link rel="stylesheet" href="/css/home/list.css" />
     <title>Document</title>
   </head>
   <body>
     <form id="list">
-    <table align="center">
-      <tr align ="left">
-        <td><h2>To Do List</h2></td>
-      </tr>
-      <tr>
-        <td><input type="text" id="text" class ="input1" /></td>
-        <td>
-          <a id="add" class ="button">+</a>
-        </td>
-      </tr>
-    </table>
-    <hr>
-    <div id ="todolist">
-      <tr>
-      </tr>
-    </div>
+      <table align="center">
+        <tr align="left">
+          <td><h2>To Do List</h2></td>
+        </tr>
+        <tr>
+          <td><input type="text" id="text" class="inputadd" /></td>
+          <td>
+            <button type="button" id="add" class="button">+</button>
+          </td>
+        </tr>
       </table>
+      <hr class="underline" />
+      <div id="todolist"></div>
     </form>
   </body>
 </html>
