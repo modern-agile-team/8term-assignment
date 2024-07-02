@@ -41,7 +41,11 @@ function printList(data) {
 function editMod(val) {
   const inputText = document.querySelector(`#text${val.id}`);
   inputText.removeAttribute("disabled"); //입력가능하게 만들기
-  val.setAttribute("onClick", `sendData()`); //수정버튼의 onClick이벤트를 readMod함수로 연결
+  val.setAttribute("onClick", `updateText(getValue(${val.id}))`); //수정버튼의 onClick이벤트를 readMod함수로 연결
   val.innerText = "확인";
 }
-function sendData(val) {}
+function getValue(val) {
+  const id = val;
+  const value = document.querySelector(`#text${id}`).value;
+  return { id: id, value: value };
+}

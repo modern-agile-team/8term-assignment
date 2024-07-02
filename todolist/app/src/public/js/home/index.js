@@ -12,11 +12,12 @@ text.addEventListener("keypress", (event) => {
   }
 });
 
-function updateText(id, value) {
+function updateText(idText) {
+  console.log(idText);
   const req = {
-    id: id,
+    id: idText.id,
     col: "description",
-    value: value,
+    value: idText.value,
   };
 
   fetch("/", {

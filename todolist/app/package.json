@@ -21,5 +21,6 @@
     "todolist": "bin/www.js"
   },
   "keywords": [],
+  "devDependencies": {},
   "description": ""
 }

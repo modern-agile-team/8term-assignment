@@ -1,7 +1,3 @@
-@use postcss-preset-env {
-  stage: 0;
-}
-
 /* ---------- GENERAL ---------- */
 
 body {
