@@ -19,10 +19,8 @@ const process = {
   deleteList: (req, res) => {
     try {
       const id = req.body.id;
-      ListStorage.deleteList(id);
-      return res.json({
-        success: true,
-      });
+      const response = ListStorage.deleteList(id);
+      return res.json(response);
     } catch (err) {
       return res.Json({ success: false, msg: err });
     }
@@ -31,7 +29,7 @@ const process = {
     try {
       const text = req.body.text;
       const id = req.body.id;
-      if (text === "") {
+      if (!text) {
         return res.json({
           success: false,
           msg: "아무것도 입력하지 않았습니다.",
@@ -55,11 +53,18 @@ const process = {
       if (column === "description") {
         const id = req.body.id,
           value = req.body.value;
+        if (!value) {
+          return res.json({
+            success: false,
+            msg: "값을 입력해주세요",
+          });
+        }
         ListStorage.updateText(id, value);
         return res.json({ success: true });
       }
     } catch (err) {
-      return res.Json({ success: false, msg: err });
+      console.log(err);
+      return res.json({ success: false, msg: err.stack });
     }
   },
 };

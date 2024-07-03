@@ -17,6 +17,9 @@ function getLastId() {
 }
 
 function updateText(idText) {
+  if (!idText.value) {
+    return alert("입력해주세요");
+  }
   textReadMod(idText.id);
   const req = {
     id: idText.id,
@@ -33,9 +36,8 @@ function updateText(idText) {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.success) {
-        //성공시
-      } else {
+      console.log(res);
+      if (!res.success) {
         alert(res.msg);
       }
     });
@@ -49,7 +51,7 @@ function updateCheck(val) {
     col: "check",
     value: val.checked ? "0" : "1", //체크되어있다면 값으로 0을 보내고 아님 1을 보낸다 반댓값을 보내기
   };
-  fetch("/edit", {
+  fetch(`/edit/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -59,8 +61,6 @@ function updateCheck(val) {
     .then((res) => res.json())
     .then((res) => {
       if (res.success) {
-        //list.submit();
-      } else {
         alert(res.msg);
       }
     });
@@ -81,9 +81,7 @@ function deleteList(id) {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.success) {
-        //성공하면뭐하지
-      } else {
+      if (!res.success) {
         alert(res.msg);
       }
     });
@@ -108,26 +106,22 @@ function addList() {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.success) {
-        //list.submit();
-      } else {
+      if (!res.success) {
         return alert(res.msg);
       }
     });
 }
-function frontInputList(myId, text) {
-  if (text) {
-    const todolist = document.querySelector("#todolist");
-    todolist.innerHTML += ` <sapn id ="${myId}">
+function frontInputList(myId) {
+  const todolist = document.querySelector("#todolist");
+  todolist.innerHTML += ` <div id ="${myId}" class = "div-hover">
     <input type="checkbox" id="checkbox${myId}" onClick="updateCheck(this)"/>
     <input type = "text" id = "text${myId}" value = "${text}" class ="input1 list-text" disabled></>
     &nbsp;
     <button type="button" id="update${myId}" onClick ="editMod(this)" class ="edit-button"></button>&nbsp;
     <button type ="button" id="delete${myId}"  onClick="deleteList(this.id)" class ="delete-button"></button>
     <hr class ="underline"/>
-  </sapn>
+  </div>
   `;
-  }
 }
 function textReadMod(id) {
   const thisText = document.querySelector(`#text${id}`);

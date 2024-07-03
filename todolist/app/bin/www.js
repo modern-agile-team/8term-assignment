@@ -1,6 +1,7 @@
+require("dotenv").config();
+
 const app = require("../../app");
 
-const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log("서버 가동");
 });

@@ -34,21 +34,36 @@ form {
 
 .button {
   font-size: 40px;
+  height: 50px;
   background-color: transparent;
   border: none;
 }
 .edit-button {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   background-image: url("../home/img/edit_button.png");
   background-repeat: no-repeat;
   background-size: cover;
   border: none;
   background-color: transparent;
 }
+.save-button {
+  width: 35px;
+  height: 25px;
+  border: none;
+  background-color: transparent;
+  font-family: "Pretendard-Regular";
+  font-size: small;
+  position: relative;
+  left: -10px;
+  top: -5px;
+}
+
 .delete-button {
-  width: 30px;
-  height: 30px;
+  position: relative;
+  left: -10px;
+  width: 25px;
+  height: 25px;
   background-image: url("../home/img/delete_button.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -66,7 +81,8 @@ form {
 /*체크되어있을때 속성*/
 .Cancellation-line {
   text-decoration: line-through;
-  color: lightsteelblue;
+  text-decoration-color: black;
+  color: rgb(130, 130, 130);
 }
 /*input 칸*/
 .inputadd {
@@ -82,6 +98,8 @@ form {
   height: 20px;
   width: 250px;
   border: none;
+  font-size: 100%;
+  margin-top: 20px;
   background-color: transparent; /* 배경을 투명하게 설정 */
 }
 .input1:focus {
@@ -89,15 +107,21 @@ form {
 }
 /*addlist 밑에 줄 hr*/
 .underline {
-  margin-top: 0;
-  margin-bottom: 20px;
-  width: 380px;
   height: 1px;
-  border: 0;
+  border: none;
+  background-color: rgba(134, 134, 134, 0.751);
+}
+.list-line {
+  margin-top: 10px;
+  margin-bottom: 0;
+  height: 1px;
+  border: 1;
   background-color: rgba(134, 134, 134, 0.751);
 }
 /*list의 한칸 클릭했을때 hover*/
-.td-list {
+
+.div-hover:hover {
+  background-color: #c9c9c9;
 }
 /*sapn 숨기기 테그*/
 .hide {
