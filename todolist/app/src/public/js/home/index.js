@@ -1,62 +1,7 @@
 "use strict";
-let maxId = 0;
-document.addEventListener("DOMContentLoaded", loadList);
-function loadList() {
-  fetch("load", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.success) {
-        printList(res.data);
-      }
-    });
-}
-
-function printList(data) {
-  const todolist = document.querySelector("#todolist");
-
-  for (let i = 0; i < data.length; i++) {
-    let tmpCheck = data[i].is_check ? "" : "checked";
-    let tmpText = data[i].is_check ? "" : "Cancellation-line";
-
-    todolist.innerHTML += ` <sapn>
-                                <input type="checkbox" id="${data[i].id}" onClick="updateCheck(this)"
-                                ${tmpCheck}/>
-                               
-                               <input type = "text" id = "text${data[i].id}" value = "${data[i].description}" class ="${tmpText} input1 list-text" disabled></>
-                                <button type="button" id="${data[i].id}" name ="update" onClick ="editMod(this)">수정</button>
-                                <button type ="button" id="${data[i].id}" name="delete" onClick="deleteList(this.id)">
-                                삭제</button>
-                                <hr class ="underline"/>
-                            </sapn>
-                            `;
-  }
-}
-function getMaxId(data) {
-  console.log(data[data.length - 1].id);
-  if (data.length === 0) return 0;
-  return data[data.length - 1].id;
-}
-function editMod(val) {
-  const inputText = document.querySelector(`#text${val.id}`);
-  inputText.removeAttribute("disabled"); //입력가능하게 만들기
-  val.setAttribute("onClick", `updateText(getValue(${val.id}))`); //수정버튼의 onClick이벤트를 readMod함수로 연결
-  val.innerText = "확인";
-}
-function getValue(val) {
-  const id = val;
-  const value = document.querySelector(`#text${id}`).value;
-  return { id: id, value: value };
-}
-//----------------------------------------------------------------------------------------------------------
 const addBtn = document.querySelector("#add"),
   list = document.querySelector("#list"),
   text = document.querySelector("#text");
-
 addBtn.addEventListener("click", addList);
 
 text.addEventListener("keypress", (event) => {
@@ -65,15 +10,21 @@ text.addEventListener("keypress", (event) => {
     addList();
   }
 });
+function getLastId() {
+  const lastList = document.querySelector("#todolist").lastElementChild;
+  if (lastList === null) return 0;
+  return Number(lastList.id);
+}
 
 function updateText(idText) {
+  textReadMod(idText.id);
   const req = {
     id: idText.id,
     col: "description",
     value: idText.value,
   };
 
-  fetch("/", {
+  fetch("edit", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -83,7 +34,7 @@ function updateText(idText) {
     .then((res) => res.json())
     .then((res) => {
       if (res.success) {
-        list.submit();
+        //성공시
       } else {
         alert(res.msg);
       }
@@ -91,12 +42,14 @@ function updateText(idText) {
 }
 
 function updateCheck(val) {
+  const thisId = val.id.match(/\d+/)[0];
+  frontChecked(thisId, val.checked);
   const req = {
-    id: val.id,
+    id: thisId,
     col: "check",
     value: val.checked ? "0" : "1", //체크되어있다면 값으로 0을 보내고 아님 1을 보낸다 반댓값을 보내기
   };
-  fetch("/", {
+  fetch("/edit", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -106,17 +59,20 @@ function updateCheck(val) {
     .then((res) => res.json())
     .then((res) => {
       if (res.success) {
-        list.submit();
+        //list.submit();
       } else {
         alert(res.msg);
       }
     });
 }
 function deleteList(id) {
+  const thisId = id.match(/\d+/)[0];
+  const hideList = document.getElementById(thisId);
+  hideList.setAttribute("class", "hide");
   const req = {
-    id: id,
+    id: thisId,
   };
-  fetch("/", {
+  fetch("/delete", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -126,7 +82,7 @@ function deleteList(id) {
     .then((res) => res.json())
     .then((res) => {
       if (res.success) {
-        list.submit();
+        //성공하면뭐하지
       } else {
         alert(res.msg);
       }
@@ -134,11 +90,16 @@ function deleteList(id) {
 }
 
 function addList() {
+  const lastId = getLastId();
+
+  frontInputList(lastId + 1, text.value);
+
   const req = {
+    id: lastId + 1,
     text: text.value,
   };
-
-  fetch("/", {
+  text.value = "";
+  fetch("/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -153,4 +114,36 @@ function addList() {
         return alert(res.msg);
       }
     });
+}
+function frontInputList(myId, text) {
+  if (text) {
+    const todolist = document.querySelector("#todolist");
+    todolist.innerHTML += ` <sapn id ="${myId}">
+    <input type="checkbox" id="checkbox${myId}" onClick="updateCheck(this)"/>
+    <input type = "text" id = "text${myId}" value = "${text}" class ="input1 list-text" disabled></>
+    &nbsp;
+    <button type="button" id="update${myId}" onClick ="editMod(this)" class ="edit-button"></button>&nbsp;
+    <button type ="button" id="delete${myId}"  onClick="deleteList(this.id)" class ="delete-button"></button>
+    <hr class ="underline"/>
+  </sapn>
+  `;
+  }
+}
+function textReadMod(id) {
+  const thisText = document.querySelector(`#text${id}`);
+  thisText.setAttribute("disabled", "");
+  const thisEdit = document.querySelector(`#update${id}`);
+  thisEdit.setAttribute("onClick", "editMod(this)");
+  thisEdit.setAttribute("class", "edit-button");
+  thisEdit.innerText = "";
+}
+
+function frontChecked(id, check) {
+  const thisText = document.querySelector(`#text${id}`);
+  if (check) {
+    //체크상태면
+    thisText.setAttribute("class", "input1 list-text Cancellation-line");
+  } else {
+    thisText.setAttribute("class", "input1 list-text");
+  }
 }

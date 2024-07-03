@@ -30,13 +30,14 @@ const process = {
   addList: (req, res) => {
     try {
       const text = req.body.text;
+      const id = req.body.id;
       if (text === "") {
         return res.json({
           success: false,
           msg: "아무것도 입력하지 않았습니다.",
         });
       }
-      ListStorage.saveInfo(text);
+      ListStorage.saveInfo(id, text);
       return res.json({ success: true });
     } catch (err) {
       return res.Json({ success: false, msg: err });

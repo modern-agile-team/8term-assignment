@@ -3,11 +3,11 @@
 const db = require("../config/db");
 
 class ListStorage {
-  static saveInfo(text) {
+  static saveInfo(id, text) {
     return new Promise((resolve, reject) => {
       const sql =
-        "INSERT INTO list(description,is_check,in_date) VALUES(?,?,NOW())";
-      db.query(sql, [text, 1], (err) => {
+        "INSERT INTO list(id,description,is_check,in_date) VALUES(?,?,?,NOW())";
+      db.query(sql, [id, text, 1], (err) => {
         if (err) reject(err);
         resolve({ success: true });
       });
@@ -18,7 +18,7 @@ class ListStorage {
     return new Promise((resolve, reject) => {
       const sql = "SELECT * FROM list";
       db.query(sql, [text, 1], (err, data) => {
-        if (err) reject(err); //에러 Object타입 나중에 수정
+        if (err) reject(err);
         resolve(data);
       });
     });
