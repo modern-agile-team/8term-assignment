@@ -3,16 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <title>Heena's Calculator</title>
-    <script src="calculator.js"></script>
   </head>
 
   <body>
     <h1>Heena's Calculator</h1>
     <h4>계산식을 입력해 주십시오. (예시: 1+2 | 종료: exit)</h4>
     <p>* 소수점 둘째자리까지 계산됩니다.</p>
-    <input name="userInput" type="text" placeholder="계산식을 입력하시오." />
-    <button onclick="btnClk()">입력</button>
-    <h1 id="result"></h1>
+
+    <input type="text" id="inputVal" placeholder="계산식을 입력하시오." />
+    <button onclick="getVal()">입력</button>
+
+    <h1 id="result">입력값이 출력되는 영역</h1>
 
     <style>
       body {
@@ -21,5 +22,6 @@
         color: floralwhite;
       }
     </style>
+    <script src="calculator.js"></script>
   </body>
 </html>
