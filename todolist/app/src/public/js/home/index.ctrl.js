@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", loadList);
 function loadList() {
-  fetch("load", {
+  fetch("/lists", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -22,12 +22,11 @@ function updateText(idText) {
   }
   textReadMod(idText.id);
   const req = {
-    id: idText.id,
-    col: "description",
+    column: "description",
     value: idText.value,
   };
 
-  fetch("edit", {
+  fetch(`lists/${idText.id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -47,33 +46,11 @@ function updateCheck(val) {
   const thisId = val.id.match(/\d+/)[0];
   frontChecked(thisId, val.checked);
   const req = {
-    id: thisId,
-    col: "check",
+    column: "check",
     value: val.checked ? "0" : "1", //체크되어있다면 값으로 0을 보내고 아님 1을 보낸다 반댓값을 보내기
   };
-  fetch(`/edit/${id}`, {
+  fetch(`/lists/${thisId}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(req),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.success) {
-        alert(res.msg);
-      }
-    });
-}
-function deleteList(id) {
-  const thisId = id.match(/\d+/)[0];
-  const hideList = document.getElementById(thisId);
-  hideList.setAttribute("class", "hide");
-  const req = {
-    id: thisId,
-  };
-  fetch("/delete", {
-    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
@@ -86,18 +63,31 @@ function deleteList(id) {
       }
     });
 }
-
+function deleteList(id) {
+  const thisId = id.match(/\d+/)[0];
+  const hideList = document.getElementById(thisId);
+  hideList.setAttribute("class", "hide");
+  fetch(`/lists/${thisId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (!res.success) {
+        alert(res.msg);
+      }
+    });
+}
 function addList() {
   const lastId = getLastId();
-
-  frontInputList(lastId + 1, text.value);
-
+  CreateList(lastId + 1, text.value);
   const req = {
-    id: lastId + 1,
-    text: text.value,
+    value: text.value,
   };
   text.value = "";
-  fetch("/add", {
+  fetch(`/lists/${lastId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -111,7 +101,7 @@ function addList() {
       }
     });
 }
-function frontInputList(myId) {
+function CreateList(myId, text) {
   const todolist = document.querySelector("#todolist");
   todolist.innerHTML += ` <div id ="${myId}" class = "div-hover">
     <input type="checkbox" id="checkbox${myId}" onClick="updateCheck(this)"/>

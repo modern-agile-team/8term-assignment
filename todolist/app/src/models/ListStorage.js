@@ -3,11 +3,13 @@
 const db = require("../config/db");
 
 class ListStorage {
-  static saveInfo(id, text) {
+  static createList(id, text) {
+    const listNo = Number(id) + 1;
+    console.log(listNo, text);
     return new Promise((resolve, reject) => {
       const sql =
         "INSERT INTO list(id,description,is_check,in_date) VALUES(?,?,?,NOW())";
-      db.query(sql, [id, text, 1], (err) => {
+      db.query(sql, [listNo, text, 1], (err) => {
         if (err) reject(err);
         resolve({ success: true });
       });
@@ -28,7 +30,9 @@ class ListStorage {
     return new Promise((resolve, reject) => {
       const sql = "DELETE FROM list WHERE id = ?";
       db.query(sql, [id], (err) => {
-        if (err) reject(err);
+        if (err) {
+          reject(err);
+        }
         resolve({ success: true });
       });
     });

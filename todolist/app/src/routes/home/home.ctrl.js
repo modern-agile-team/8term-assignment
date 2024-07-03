@@ -18,53 +18,52 @@ const output = {
 const process = {
   deleteList: (req, res) => {
     try {
-      const id = req.body.id;
-      const response = ListStorage.deleteList(id);
-      return res.json(response);
+      const { listno } = req.params;
+      const response = ListStorage.deleteList(listno);
+      return response;
     } catch (err) {
-      return res.Json({ success: false, msg: err });
+      return res.Json({ success: false, msg: "삭제실패" });
     }
   },
   addList: (req, res) => {
+    const value = req.body.value;
+    const { listno } = req.params;
     try {
-      const text = req.body.text;
-      const id = req.body.id;
-      if (!text) {
+      if (!value) {
         return res.json({
           success: false,
           msg: "아무것도 입력하지 않았습니다.",
         });
       }
-      ListStorage.saveInfo(id, text);
+      ListStorage.createList(listno, value);
       return res.json({ success: true });
     } catch (err) {
-      return res.Json({ success: false, msg: err });
+      return res.json({ success: false, msg: "다시 입력하세요" });
     }
   },
   updateList: (req, res) => {
+    const { listno } = req.params;
+    const column = req.body.column;
     try {
-      const column = req.body.col;
       if (column === "check") {
-        const id = req.body.id,
-          value = req.body.value;
-        ListStorage.updateCheck(id, value);
-        return res.json({ success: true });
+        const value = req.body.value;
+
+        const response = ListStorage.updateCheck(listno, value);
+        return response;
       }
       if (column === "description") {
-        const id = req.body.id,
-          value = req.body.value;
+        const value = req.body.value;
         if (!value) {
           return res.json({
             success: false,
             msg: "값을 입력해주세요",
           });
         }
-        ListStorage.updateText(id, value);
-        return res.json({ success: true });
+        const response = ListStorage.updateText(listno, value);
+        return response;
       }
     } catch (err) {
-      console.log(err);
-      return res.json({ success: false, msg: err.stack });
+      return res.json({ success: false, msg: "오류발생" });
     }
   },
 };
