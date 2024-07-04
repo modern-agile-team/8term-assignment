@@ -30,7 +30,8 @@ function updateText(val) {
         //실패시 alert
         alert(res.msg);
       }
-    });
+    })
+    .catch(error);
 }
 
 function updateCheck(val) {
@@ -136,4 +137,24 @@ function getLastId() {
   const lastList = document.querySelector("#todolist").lastElementChild;
   if (lastList === null) return 0;
   return Number(lastList.id);
+}
+//----------
+function editMod(val) {
+  const thisId = val.id.match(/\d+/)[0];
+
+  const inputText = document.querySelector(`#text${thisId}`);
+  const textValue = inputText.value;
+  inputText.removeAttribute("disabled"); //입력가능하게 만들기
+  inputText.focus();
+  inputText.value = "";
+  inputText.value = textValue;
+  val.setAttribute("class", "save-button");
+  val.setAttribute("onClick", `updateText(getValue(${thisId}))`); //수정버튼의 onClick이벤트를 readMod함수로 연결
+  val.innerText = "확인";
+}
+
+function getValue(thisId) {
+  console.log(thisId);
+  const value = document.querySelector(`#text${thisId}`).value;
+  return { id: thisId, value: value };
 }

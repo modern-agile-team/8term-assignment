@@ -51,6 +51,7 @@ const process = {
       return res.json({ success: true });
     } catch (err) {
       //에러가 발생했을 때
+      console.log(err);
       return res.json({ success: false, msg: "추가실패" });
     }
   },
@@ -62,7 +63,7 @@ const process = {
       //체크 수정
       if (column === "check") {
         const value = req.body.value;
-        ListStorage.updateCheck(listno, value);
+        const response = ListStorage.updateCheck(listno, value);
         return response;
       }
       //텍스트 수정
@@ -80,6 +81,7 @@ const process = {
       }
     } catch (err) {
       //에러 발생 시
+      console.log(err);
       return res.json({ success: false, msg: "수정실패" });
     }
   },
