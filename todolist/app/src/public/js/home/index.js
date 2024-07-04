@@ -10,23 +10,14 @@ text.addEventListener("keypress", (event) => {
     addList();
   }
 });
-function getLastId() {
-  const lastList = document.querySelector("#todolist").lastElementChild;
-  if (lastList === null) return 0;
-  return Number(lastList.id);
-}
-
-function updateText(idText) {
-  if (!idText.value) {
-    return alert("입력해주세요");
-  }
-  textReadMod(idText.id);
+function updateText(val) {
+  textReadMod(val.id, val.value);
   const req = {
     column: "description",
-    value: idText.value,
+    value: val.value,
   };
 
-  fetch(`lists/${idText.id}`, {
+  fetch(`lists/${val.id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -35,8 +26,8 @@ function updateText(idText) {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       if (!res.success) {
+        //실패시 alert
         alert(res.msg);
       }
     });
@@ -101,33 +92,48 @@ function addList() {
       }
     });
 }
+//------------------------------------------------------------------------------------------------------------------------------------------------
 function CreateList(myId, text) {
-  const todolist = document.querySelector("#todolist");
-  todolist.innerHTML += ` <div id ="${myId}" class = "div-hover">
+  if (text) {
+    const todolist = document.querySelector("#todolist");
+    todolist.innerHTML += `<div id ="${myId}" class = "div">
     <input type="checkbox" id="checkbox${myId}" onClick="updateCheck(this)"/>
+    <label for="checkbox${myId}"></label>
     <input type = "text" id = "text${myId}" value = "${text}" class ="input1 list-text" disabled></>
     &nbsp;
     <button type="button" id="update${myId}" onClick ="editMod(this)" class ="edit-button"></button>&nbsp;
     <button type ="button" id="delete${myId}"  onClick="deleteList(this.id)" class ="delete-button"></button>
-    <hr class ="underline"/>
+    <hr class ="list-line"/>
   </div>
   `;
+  }
 }
-function textReadMod(id) {
-  const thisText = document.querySelector(`#text${id}`);
-  thisText.setAttribute("disabled", "");
-  const thisEdit = document.querySelector(`#update${id}`);
-  thisEdit.setAttribute("onClick", "editMod(this)");
-  thisEdit.setAttribute("class", "edit-button");
-  thisEdit.innerText = "";
+
+function textReadMod(id, value) {
+  if (value) {
+    const thisText = document.querySelector(`#text${id}`);
+    thisText.setAttribute("disabled", "");
+    const thisEdit = document.querySelector(`#update${id}`);
+    thisEdit.setAttribute("onClick", "editMod(this)");
+    thisEdit.setAttribute("class", "edit-button");
+    thisEdit.innerText = "";
+  }
 }
 
 function frontChecked(id, check) {
   const thisText = document.querySelector(`#text${id}`);
+  const thisEdit = document.querySelector(`#update${id}`);
   if (check) {
     //체크상태면
+    thisEdit.setAttribute("class", "edit-hidden");
     thisText.setAttribute("class", "input1 list-text Cancellation-line");
   } else {
+    thisEdit.setAttribute("class", "edit-button");
     thisText.setAttribute("class", "input1 list-text");
   }
+}
+function getLastId() {
+  const lastList = document.querySelector("#todolist").lastElementChild;
+  if (lastList === null) return 0;
+  return Number(lastList.id);
 }

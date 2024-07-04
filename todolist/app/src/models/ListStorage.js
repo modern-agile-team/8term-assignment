@@ -5,7 +5,6 @@ const db = require("../config/db");
 class ListStorage {
   static createList(id, text) {
     const listNo = Number(id) + 1;
-    console.log(listNo, text);
     return new Promise((resolve, reject) => {
       const sql =
         "INSERT INTO list(id,description,is_check,in_date) VALUES(?,?,?,NOW())";
@@ -16,10 +15,10 @@ class ListStorage {
     });
   }
 
-  static getListInfo(text) {
+  static getListInfo() {
     return new Promise((resolve, reject) => {
       const sql = "SELECT * FROM list";
-      db.query(sql, [text, 1], (err, data) => {
+      db.query(sql, (err, data) => {
         if (err) reject(err);
         resolve(data);
       });
