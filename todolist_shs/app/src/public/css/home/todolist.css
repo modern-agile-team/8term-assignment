@@ -1,9 +1,62 @@
+/* 강원교육튼튼체 웹폰트 */
+@font-face {
+  font-family: 'GangwonEduPowerExtraBoldA';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 모든 글씨 웹폰트 적용 */
+* {
+  font-family: 'GangwonEduPowerExtraBoldA' !important;
+}
+
+/* To do list */
 #box {
-  background-color: green;
+  background-color: #f1f1f1;
+
   border-radius: 30px;
-  width: 100px;
-  height: 100px;
+  width: 405px;
+  height: 154px;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+  box-shadow: 1px 3px 5px gray;
+
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 65px;
+
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+}
+
+/* 입력란 */
+.input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 2;
+}
+
+input.plus {
+  box-sizing: border-box;
+
+  position: absolute;
+  left: 89.2%;
+  right: 5.38%;
+  top: 46.75%;
+  bottom: 39.04%;
+
+  background: #333333;
+}
+
+/* 밑줄 */
+hr {
+  width: 85%;
+  margin-top: -18px;
 }
