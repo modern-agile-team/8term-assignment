@@ -1,0 +1,9 @@
+#box {
+  background-color: green;
+  border-radius: 30px;
+  width: 100px;
+  height: 100px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
