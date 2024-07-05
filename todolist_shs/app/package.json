@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "mysql2": "^3.10.2",
     "nodemon": "^3.1.4"
@@ -8,7 +9,6 @@
   "name": "todolist_shs",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "bin": {
     "todolist_shs": "www.js"
   },
