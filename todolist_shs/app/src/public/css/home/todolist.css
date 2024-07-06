@@ -24,7 +24,7 @@
   text-align: center;
   box-shadow: 1px 3px 5px gray;
 
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
   line-height: 65px;
 
@@ -43,20 +43,21 @@
   line-height: 2;
 }
 
-input.plus {
-  box-sizing: border-box;
-
-  position: absolute;
-  left: 89.2%;
-  right: 5.38%;
-  top: 46.75%;
-  bottom: 39.04%;
-
-  background: #333333;
+.plus-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  top: 5px;
 }
 
+.plus-button img {
+  width: 20px;
+  height: auto;
+}
 /* 밑줄 */
 hr {
-  width: 85%;
+  width: 80%;
   margin-top: -18px;
 }
