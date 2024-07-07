@@ -4,8 +4,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../config/db');
 
-router.get('/', (req, res) => {
-  res.render('home/todolist');
-});
+const ctrl = require('./home.ctrl');
+
+router.get('/', ctrl.home);
 
 module.exports = router;
