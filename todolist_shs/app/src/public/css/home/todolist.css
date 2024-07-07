@@ -43,6 +43,10 @@
   line-height: 2;
 }
 
+input::placeholder {
+  padding-top: 2px;
+}
+
 .plus-button {
   background: none;
   border: none;
@@ -56,6 +60,7 @@
   width: 20px;
   height: auto;
 }
+
 /* 밑줄 */
 hr {
   width: 80%;
