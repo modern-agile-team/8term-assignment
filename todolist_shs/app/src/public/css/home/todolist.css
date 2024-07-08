@@ -35,7 +35,7 @@
 }
 
 /* 입력란 */
-.input {
+#input {
   background-color: transparent;
   border: none;
   outline: none;
@@ -47,7 +47,7 @@ input::placeholder {
   padding-top: 2px;
 }
 
-.plus-button {
+#plus-button {
   background: none;
   border: none;
   padding: 0;
@@ -56,8 +56,13 @@ input::placeholder {
   top: 5px;
 }
 
-.plus-button img {
+#plus-button img {
   width: 20px;
+  height: auto;
+}
+
+#plus-button img:hover {
+  width: 25px;
   height: auto;
 }
 
