@@ -18,7 +18,8 @@
 
   border-radius: 30px;
   width: 405px;
-  height: 154px;
+  height: 152px;
+  padding-bottom: 20px;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
@@ -27,11 +28,13 @@
   font-size: 25px;
   font-weight: 600;
   line-height: 65px;
+}
 
-  position: absolute;
-  left: 50%;
-  top: 25%;
-  transform: translate(-50%, -50%);
+/* To do list 박스 위치 고정 */
+body {
+  display: flex;
+  justify-content: center;
+  margin: 5%;
 }
 
 /* 입력란 */
@@ -39,12 +42,18 @@
   background-color: transparent;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 65%;
   line-height: 2;
 }
 
 input::placeholder {
   padding-top: 2px;
+}
+
+#todo-list {
+  font-size: 65%;
+  line-height: 200%;
+  left: 70%;
 }
 
 #plus-button {

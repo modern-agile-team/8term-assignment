@@ -1,7 +1,9 @@
 'use strict';
 
 const todo = document.querySelector('#input'),
-  plusButton = document.querySelector('#plus-button');
+  plusButton = document.querySelector('#plus-button'),
+  todoList = document.querySelector('#todo-list'),
+  box = document.querySelector('#box');
 
 // 플러스버튼 클릭시 add 함수 호출
 plusButton.addEventListener('click', add);
@@ -14,7 +16,11 @@ function enter() {
 // add 함수가 잘 작동되는지 테스트(미완)
 function add() {
   if (todo.value) {
-    return alert(todo.value);
+    const div = document.createElement('div');
+    div.innerHTML = todo.value + '<span>체크박스</span>';
+    todoList.appendChild(div);
+    div.style.border = '2px solid grey';
+    todo.value = '';
   } else {
     addErr();
   }
