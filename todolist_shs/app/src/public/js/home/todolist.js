@@ -17,7 +17,14 @@ function enter() {
 function add() {
   if (todo.value) {
     const div = document.createElement('div');
-    div.innerHTML = todo.value + '<span>체크박스</span>';
+    div.innerHTML = `${todo.value}
+    <span>
+       <!-- 수정 아이콘 -->
+        <img src="https://cdn0.iconfinder.com/data/icons/zondicons/20/edit-pencil-64.png" id="modify" onclick="editItem(this)" />
+        <!-- 삭제 아이콘 -->
+        <img src="https://cdn-icons-png.flaticon.com/512/12/12960.png" id="elimination" onclick="deleteItem(this)" />
+    </span>
+    `;
     todoList.appendChild(div);
     div.style.border = '2px solid grey';
     todo.value = '';
@@ -31,4 +38,10 @@ function addErr() {
   if (!todo.value) {
     return alert('할 일을 입력해주십시오.');
   }
+}
+
+// todo 삭제 함수
+function deleteItem(element) {
+  const div = element.parentNode.parentNode;
+  div.remove();
 }

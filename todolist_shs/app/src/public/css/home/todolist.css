@@ -53,9 +53,9 @@ input::placeholder {
 #todo-list {
   font-size: 65%;
   line-height: 200%;
-  left: 70%;
 }
 
+/* 추가 */
 #plus-button {
   background: none;
   border: none;
@@ -73,6 +73,20 @@ input::placeholder {
 #plus-button img:hover {
   width: 25px;
   height: auto;
+}
+
+/* 수정 */
+#modify {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* 삭제 */
+#elimination {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 /* 밑줄 */
