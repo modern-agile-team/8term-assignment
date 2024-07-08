@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/js/home/index.js" defer></script>
     <script src="/js/home/index.view.js" defer></script>
-    <link rel="stylesheet" href="/css/home/list.css" />
+    <link rel="stylesheet" href="/css/home/todolist.css" />
     <title>Document</title>
   </head>
   <body>
@@ -17,15 +17,20 @@
 
         <tr>
           <td>
-            <input type="text" id="text" class="inputadd" />
+            <textarea
+              id="text"
+              class="input-add"
+              onkeydown="resize(this)"
+              wrap="hard"
+            ></textarea>
           </td>
           <td>
-            <button type="button" id="add" class="button">+</button>
+            <button type="button" id="add" class="button-add">+</button>
           </td>
         </tr>
       </table>
-      <hr class="underline" />
-      <div id="todolist"></div>
+      <hr />
+      <div id="todolist" class="todolist"></div>
     </form>
   </body>
 </html>

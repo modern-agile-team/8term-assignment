@@ -10,6 +10,7 @@ text.addEventListener("keypress", (event) => {
     addList();
   }
 });
+
 function updateText(val) {
   textReadMod(val.id, val.value);
   const req = {
@@ -30,8 +31,7 @@ function updateText(val) {
         //실패시 alert
         alert(res.msg);
       }
-    })
-    .catch(error);
+    });
 }
 
 function updateCheck(val) {
@@ -78,6 +78,7 @@ function addList() {
   const req = {
     value: text.value,
   };
+  text.style.height = "23px";
   text.value = "";
   fetch(`/lists/${lastId}`, {
     method: "POST",
@@ -100,13 +101,14 @@ function CreateList(myId, text) {
     todolist.innerHTML += `<div id ="${myId}" class = "div">
     <input type="checkbox" id="checkbox${myId}" onClick="updateCheck(this)"/>
     <label for="checkbox${myId}"></label>
-    <input type = "text" id = "text${myId}" value = "${text}" class ="input1 list-text" disabled></>
+    <textarea id = "text${myId}" value = "" class ="list-textarea" disabled onkeydown="resize(this)">${text}</textarea>
     &nbsp;
-    <button type="button" id="update${myId}" onClick ="editMod(this)" class ="edit-button"></button>&nbsp;
-    <button type ="button" id="delete${myId}"  onClick="deleteList(this.id)" class ="delete-button"></button>
+    <button type="button" id="update${myId}" onClick ="editMod(this)" class ="button-edit"></button>&nbsp;
+    <button type ="button" id="delete${myId}"  onClick="deleteList(this.id)" class ="button-delete"></button>
     <hr class ="list-line"/>
   </div>
   `;
+    listReSize(`text${myId}`);
   }
 }
 
@@ -116,7 +118,7 @@ function textReadMod(id, value) {
     thisText.setAttribute("disabled", "");
     const thisEdit = document.querySelector(`#update${id}`);
     thisEdit.setAttribute("onClick", "editMod(this)");
-    thisEdit.setAttribute("class", "edit-button");
+    thisEdit.setAttribute("class", "button-edit");
     thisEdit.innerText = "";
   }
 }
@@ -127,10 +129,10 @@ function frontChecked(id, check) {
   if (check) {
     //체크상태면
     thisEdit.setAttribute("class", "edit-hidden");
-    thisText.setAttribute("class", "input1 list-text Cancellation-line");
+    thisText.setAttribute("class", "list-textarea Cancellation-line");
   } else {
-    thisEdit.setAttribute("class", "edit-button");
-    thisText.setAttribute("class", "input1 list-text");
+    thisEdit.setAttribute("class", "button-edit");
+    thisText.setAttribute("class", "list-textarea");
   }
 }
 function getLastId() {
@@ -148,13 +150,20 @@ function editMod(val) {
   inputText.focus();
   inputText.value = "";
   inputText.value = textValue;
-  val.setAttribute("class", "save-button");
+  val.setAttribute("class", "button-save");
   val.setAttribute("onClick", `updateText(getValue(${thisId}))`); //수정버튼의 onClick이벤트를 readMod함수로 연결
   val.innerText = "확인";
 }
 
 function getValue(thisId) {
-  console.log(thisId);
   const value = document.querySelector(`#text${thisId}`).value;
   return { id: thisId, value: value };
+}
+function resize(obj) {
+  obj.style.height = "1px";
+  obj.style.height = obj.scrollHeight + "px";
+}
+function listReSize(objId) {
+  const obj = document.querySelector(`#${objId}`);
+  obj.style.height = obj.scrollHeight + "px";
 }
