@@ -18,7 +18,7 @@ plusButton.addEventListener('click', addId);
 
 // enter키를 눌렀을 때 add, addId, saveItem 함수 호출
 function enter(event) {
-  if (event.keyCode === 13) {
+  if (event && event.keyCode === 13) {
     const activeElement = document.activeElement;
     if (activeElement.id === 'input') {
       add();
@@ -95,7 +95,6 @@ function saveItem(element) {
   const div = element.parentNode;
   const editIcon = div.querySelector('#edit');
   element.disabled = true;
-  element.classList.remove('editable');
   editIcon.src =
     'https://cdn0.iconfinder.com/data/icons/zondicons/20/edit-pencil-64.png'; // 수정 아이콘
 }
