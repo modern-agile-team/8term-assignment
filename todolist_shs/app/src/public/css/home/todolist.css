@@ -52,7 +52,15 @@ input::placeholder {
 
 #todo-list {
   font-size: 65%;
-  line-height: 200%;
+  line-height: 250%;
+}
+
+#list-text {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: relative;
+  z-index: 2;
 }
 
 /* 추가 */
@@ -76,14 +84,14 @@ input::placeholder {
 }
 
 /* 수정 */
-#modify {
+#edit {
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 
 /* 삭제 */
-#elimination {
+#delete {
   width: 20px;
   height: 20px;
   cursor: pointer;
