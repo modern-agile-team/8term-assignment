@@ -45,7 +45,7 @@ function add() {
     `;
     const childDiv = todoList.appendChild(div);
     childDiv.setAttribute('id', todoId);
-    div.style.border = '2px solid grey';
+    div.style.border = '1px solid grey';
     todo.value = '';
   } else {
     addErr();
@@ -77,10 +77,12 @@ function addErr() {
 function editItem(element) {
   const div = element.parentNode.parentNode;
   const listText = div.querySelector('#list-text');
+
   if (listText.disabled) {
     listText.disabled = false;
     listText.classList.add('editable');
     listText.focus();
+    listText.setSelectionRange(listText.value.length, listText.value.length);
     element.src =
       'https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_check-256.png'; // 수정 완료 아이콘
   } else {
@@ -95,6 +97,7 @@ function saveItem(element) {
   const div = element.parentNode;
   const editIcon = div.querySelector('#edit');
   element.disabled = true;
+  element.classList.remove('editable');
   editIcon.src =
     'https://cdn0.iconfinder.com/data/icons/zondicons/20/edit-pencil-64.png'; // 수정 아이콘
 }

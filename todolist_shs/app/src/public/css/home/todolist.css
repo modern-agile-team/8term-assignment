@@ -43,7 +43,6 @@ body {
   border: none;
   outline: none;
   font-size: 65%;
-  line-height: 2;
 }
 
 input::placeholder {
@@ -59,7 +58,7 @@ input::placeholder {
   background-color: transparent;
   border: none;
   outline: none;
-  line-height: 2;
+  width: 75%;
 }
 
 /* 추가 */
@@ -98,6 +97,6 @@ input::placeholder {
 
 /* 밑줄 */
 hr {
-  width: 80%;
-  margin-top: -18px;
+  width: 70%;
+  margin-top: -3%;
 }
