@@ -58,7 +58,7 @@ function Check(checkbox) {
 
   if (checkbox.checked) {
     listText.style.textDecoration = 'line-through';
-    listText.style.textDecorationThickness = '2px';
+    listText.style.textDecorationThickness = '1px';
     listText.style.color = 'grey';
   } else {
     listText.style.textDecoration = 'none';
