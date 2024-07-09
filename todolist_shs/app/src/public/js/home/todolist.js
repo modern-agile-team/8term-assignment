@@ -46,6 +46,7 @@ function add() {
     const childDiv = todoList.appendChild(div);
     childDiv.setAttribute('id', todoId);
     div.style.border = '1px solid grey';
+    div.style.font = 'black';
     todo.value = '';
   } else {
     addErr();

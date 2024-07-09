@@ -59,6 +59,12 @@ input::placeholder {
   border: none;
   outline: none;
   width: 75%;
+  color: black;
+}
+
+/* 체크박스 */
+#complete-line {
+  accent-color: black;
 }
 
 /* 추가 */
@@ -77,7 +83,7 @@ input::placeholder {
 }
 
 #plus-button img:hover {
-  width: 25px;
+  width: 22px;
   height: auto;
 }
 
@@ -88,11 +94,21 @@ input::placeholder {
   cursor: pointer;
 }
 
+#edit:hover {
+  width: 22px;
+  height: auto;
+}
+
 /* 삭제 */
 #delete {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+#delete:hover {
+  width: 22px;
+  height: auto;
 }
 
 /* 밑줄 */
