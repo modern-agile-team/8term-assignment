@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
@@ -14,11 +15,16 @@
     "todolist_shs": "www.js"
   },
   "scripts": {
-    "start": "nodemon ./bin/www.js",
+    "start": "npm-run-all --parallel start-json start-app",
+    "start-json": "json-server --watch db.json --port 3001",
+    "start-app": "nodemon ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
 }
