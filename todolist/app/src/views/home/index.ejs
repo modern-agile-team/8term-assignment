@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/home/index.js" defer></script>
+    <script src="/js/home/index.view.js" defer></script>
+    <link rel="stylesheet" href="/css/home/todolist.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="list">
+      <table align="center">
+        <tr align="left">
+          <td><h2>To Do List</h2></td>
+        </tr>
+
+        <tr>
+          <td>
+            <textarea
+              id="text"
+              class="input-add"
+              onkeydown="resize(this)"
+              wrap="hard"
+            ></textarea>
+          </td>
+          <td>
+            <button type="button" id="add" class="button-add">+</button>
+          </td>
+        </tr>
+      </table>
+      <hr />
+      <div id="todolist" class="todolist"></div>
+    </form>
+  </body>
+</html>
