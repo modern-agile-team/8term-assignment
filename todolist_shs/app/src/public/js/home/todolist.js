@@ -83,7 +83,7 @@ function fetchTodos() {
 // 체크박스 함수
 function Check(checkbox) {
   const listText = checkbox.parentNode.querySelector('#list-text');
-  const todoId = checkbox.parentNode.parentNode.id;
+  const todoId = checkbox.parentNode.id;
   const is_check = checkbox.checked;
 
   fetch(`http://localhost:3001/todos/${todoId}`, {
@@ -137,7 +137,7 @@ function editItem(element) {
 function saveItem(element) {
   const div = element.parentNode;
   const editIcon = div.querySelector('#edit');
-  const todoId = div.parentNode.id;
+  const todoId = div.id;
   const description = element.value;
 
   fetch(`http://localhost:3001/todos/${todoId}`, {
