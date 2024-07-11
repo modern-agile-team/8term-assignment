@@ -1,14 +1,9 @@
 {
   "todos": [
     {
-      "id": "8b5e",
-      "description": "ㅁㄴㅇ",
-      "is_check": false
-    },
-    {
-      "id": "d75c",
-      "description": "ㄴㅇㅁㅇㄴasds",
-      "is_check": false
+      "id": "7868",
+      "description": "ㅁㄴㅇㄴㅁㅇㄴㅁ",
+      "is_check": true
     }
   ]
 }

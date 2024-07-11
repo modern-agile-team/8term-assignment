@@ -75,6 +75,13 @@ function fetchTodos() {
         // div 요소에 id 속성 추가
         childDiv.setAttribute('id', todo.id);
         div.style.border = '1px solid grey';
+
+        if (todo.is_check) {
+          const listText = div.querySelector('#list-text');
+          listText.style.textDecoration = 'line-through';
+          listText.style.textDecorationThickness = '1px';
+          listText.style.color = 'grey';
+        }
       });
     })
     .catch((err) => console.error('Error:', err));
