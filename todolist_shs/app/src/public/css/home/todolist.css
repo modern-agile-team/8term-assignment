@@ -42,7 +42,10 @@ body {
   background-color: transparent;
   border: none;
   outline: none;
+  width: 60%;
   font-size: 65%;
+  overflow: hidden;
+  resize: none;
 }
 
 input::placeholder {
@@ -78,7 +81,7 @@ input::placeholder {
   padding: 0;
   cursor: pointer;
   position: relative;
-  top: 5px;
+  top: -1%;
 }
 
 #plus-button img {
@@ -118,5 +121,5 @@ input::placeholder {
 /* 밑줄 */
 hr {
   width: 70%;
-  margin-top: -3%;
+  margin-top: -5%;
 }

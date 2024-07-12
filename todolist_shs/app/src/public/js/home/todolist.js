@@ -10,13 +10,20 @@ document.addEventListener('keyup', enter);
 // 플러스 버튼 클릭 시 add 함수 호출
 plusButton.addEventListener('click', add);
 
+function autoResize(textarea) {
+  textarea.style.height = 'auto';
+  textarea.style.height = textarea.scrollHeight + 'px';
+}
+
 // enter키 입력 시 실행 함수
 function enter(event) {
   if (event && event.keyCode === 13) {
     const activeElement = document.activeElement;
 
     // 할 일 입력란이 활성화된 상태라면
-    if (activeElement.id === 'input') add();
+    if (activeElement.id === 'input') {
+      add();
+    }
     // 입력값을 다 쓰고 비활성 상태일 때 목록의 내용 저장
     else if (activeElement.classList.contains('editable')) {
       saveItem(activeElement);
