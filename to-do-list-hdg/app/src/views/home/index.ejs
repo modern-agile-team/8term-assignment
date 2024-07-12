@@ -70,8 +70,53 @@
     <script>
       const inCheck = document.querySelector("#in-check-1");
       const descripton = document.querySelector("#descripton-1");
+      let list;
 
-      function add() {
+      document.addEventListener('DOMContentLoaded', async ()=>{
+        getLists(createContener);
+      });
+
+      function createContener(){
+        
+        const contenerDiv = document.querySelector(".contener");
+       
+        for(let i = 0; i < list.data.length; i++){
+          const id = list.data[i].id;
+          const is_check = list.data[i].is_check;
+          const description = list.data[i].description;
+
+          //div add 를 contener에 추가
+          let divAdd = document.createElement('div');
+          divAdd.setAttribute('class', 'add');
+          contenerDiv.appendChild(divAdd);
+
+          //checkbox를 add 에 생성
+          let checkbox = document.createElement('input');
+          checkbox.setAttribute('class', 'checkbox');
+          checkbox.setAttribute('type', 'checkbox');
+          checkbox.setAttribute('checked', is_check);
+          checkbox.addEventListener('click', toggleText(this,description));
+          //체크박스 체크됬으면 del 걸기
+          if(checkbox.checked){
+            let del = document.createElement('del');
+            text.innerHTML = `<del>${list.data[i].description}</del>`;
+          } else {
+            text.innerHTML = list.data[i].description;
+          }
+          divAdd.appendChild(checkbox);
+
+          //text 를 만들기
+          let text = document.createElement('span');
+          divAdd.appendChild(text);
+          
+          
+          
+
+          
+        }
+      }
+
+      function addList() {
         const req = {
           inCheck: inCheck.value,
           descripton: descripton.value,
@@ -92,43 +137,70 @@
             console.error("리스트 추가 중 에러 발생");
           });
       }
+
+      function getLists(func) {
+        fetch("/lists")
+          .then((res) => res.json())
+          .then((res) => {
+            if (!res.success) alert(res.msg);
+            list = res
+            console.log("리스트는 : ",list);
+            console.log("리스트 success는 : ",list.success);
+            console.log("리스트 data는 : ",list.data);
+            console.log("리스트 data[0]는 : ",list.data[0]);
+            console.log("리스트 description",list.data[0].description)
+            if(func) func();
+          })
+          .catch((err) => {
+            console.error("리스트 화면 띄우는 중 에러 발생");
+          });
+      }
+
+      function updateList() {
+        const req = {
+          inCheck: inCheck.value,
+          descripton: descripton.value,
+        };
+
+        fetch(`/lists/${id}`)
+          .then((res) => res.json())
+          .then((res) => {
+            if (!res.success) alert(res.msg);
+          })
+          .catch((err) => {
+            console.error("리스트 수정 중 에러 발생");
+          });
+      }
+
+      function deleteList() {
+        fetch(`/lists/${id}`)
+          .then((res) => res.json())
+          .then((res) => {
+            if (!res.success) alert(res.msg);
+          })
+          .catch((err) => {
+            console.error("리스트 삭제 중 에러 발생");
+          });
+      }
+
+      function toggleText(checkbox,text){
+        if(checkbox.checked){
+            let del = document.createElement('del');
+            text.innerHTML = `<del>${text}</del>`;
+          } else {
+            text.innerHTML = text;
+          }
+      }
+
     </script>
   </head>
   <body>
     <div class="contener">
+
       <h3>To Do List</h3>
       <div class="base">
-        <button class="add-button" type="button" onclick="add();"></button>
+        <button class="add-button" type="button" onclick="addList();"></button>
       </div>
-      <!--add 버튼 누르면 추가되야할 부분들 1-->
-      <div class="add">
-        <input id="in-check-1" class="checkbox" type="checkbox" name="" />
-        <input id="descripton-1" type="text" name="" value="할 일 1" disabled />
-        <button class="pan" type="button">p</button>
-        <button class="waste" type="button">w</button>
-      </div>
-      <!--끝-->
-
-      <!--add 버튼 누르면 추가되야할 부분들 2 + 체크박스 눌리면 변할 요소들-->
-      <div class="add">
-        <input class="checkbox" type="checkbox" name="" checked />
-        <input type="text" name="" value="할 일 2 , del 적용" disabled />
-        <button class="pan" type="button">p</button>
-        <button class="waste" type="button">w</button>
-      </div>
-      <!--끝-->
-
-      <!--add 버튼 누르면 추가되야할 부분들 3 + 연필버튼 눌렀을때 변할 요소들 후-->
-      <div class="add">
-        <input class="checkbox" type="checkbox" name="" disabled />
-        <!--비활성화 되야함-->
-        <input type="text" name="" value="할 일 3" />
-        <!--input text 변환 + value = 이너html-->
-        <button class="pan" type="button">완료</button>
-        <!--버튼을 완료 텍스트로 변환-->
-        <button class="waste" type="button">w</button>
-      </div>
-      <!--끝-->
-    </div>
+  
   </body>
 </html>
