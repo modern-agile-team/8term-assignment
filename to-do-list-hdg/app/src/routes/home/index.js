@@ -6,6 +6,7 @@ const ctrl = require("./home.ctrl");
 
 router.get("/", ctrl.output.home);
 
-router.post("/lists", ctrl.process.lists);
+router.get("/lists", ctrl.process.getLists);
+router.post("/lists", ctrl.process.createList);
 
 module.exports = router;
