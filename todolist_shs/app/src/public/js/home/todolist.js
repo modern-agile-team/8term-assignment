@@ -10,10 +10,22 @@ document.addEventListener('keyup', enter);
 // 플러스 버튼 클릭 시 add 함수 호출
 plusButton.addEventListener('click', add);
 
+// textarea 자동 줄 바꿈
 function autoResize(textarea) {
   textarea.style.height = 'auto';
   textarea.style.height = textarea.scrollHeight + 'px';
 }
+
+// 입력값 enter키 방지
+document.addEventListener(
+  'keydown',
+  function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
+  },
+  true
+);
 
 // enter키 입력 시 실행 함수
 function enter(event) {
@@ -81,8 +93,8 @@ function fetchTodos() {
         const childDiv = todoList.appendChild(div);
         // div 요소에 id 속성 추가
         childDiv.setAttribute('id', todo.id);
+        // div 요소에 class 속성 추가
         childDiv.setAttribute('class', 'list');
-        div.style.border = '1px solid grey';
 
         if (todo.is_check) {
           const listText = div.querySelector('#list-text');

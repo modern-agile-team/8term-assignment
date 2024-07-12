@@ -57,6 +57,12 @@ input::placeholder {
   line-height: 250%;
 }
 
+.list {
+  border-bottom: 1px solid #9a9a9a;
+  margin: auto;
+  width: 90%;
+}
+
 .list:hover {
   background-color: #e0e0e0;
 }
@@ -81,7 +87,7 @@ input::placeholder {
   padding: 0;
   cursor: pointer;
   position: relative;
-  top: -1%;
+  top: -1.5%;
 }
 
 #plus-button img {
@@ -121,5 +127,5 @@ input::placeholder {
 /* 밑줄 */
 hr {
   width: 70%;
-  margin-top: -5%;
+  margin-top: -5.5%;
 }
