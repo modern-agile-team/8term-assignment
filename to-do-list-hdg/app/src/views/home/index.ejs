@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>to do list</title>
+    <style>
+      .contener {
+        width: 405px;
+        top: 168px;
+        background-color: #f1f1f1;
+        border: 2px solid #e0e0e0;
+        padding-left: 15px;
+        box-sizing: border-box;
+        padding-bottom: 15px;
+      }
+      .base {
+        width: 359.23px;
+        height: 34px;
+        top: 69px;
+        left: 23.88px;
+        gap: 0px;
+        border-bottom: 1px solid #cbcbcb;
+        opacity: 0px;
+      }
+      .add {
+        width: 359.23px;
+        height: 34px;
+        top: 69px;
+        left: 23.88px;
+        gap: 0px;
+        border-bottom: 1px solid #cbcbcb;
+        opacity: 0px;
+      }
+      .add:hover {
+        background: #e0e0e0;
+      }
+
+      .add-button {
+        width: 21.94px;
+        height: 21.88px;
+        top: 72px;
+        left: 361.28px;
+        gap: 0px;
+        opacity: 0px;
+        float: right;
+      }
+      .checkbox {
+        width: 18px;
+        height: 18px;
+        top: 133px;
+        left: 29px;
+        gap: 0px;
+        border-radius: 3px 0px 0px 0px;
+        border-bottom: 1px solid #cbcbcb;
+        opacity: 0px;
+      }
+      .text {
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.94px;
+        text-align: left;
+      }
+
+      del {
+        color: #797979;
+      }
+    </style>
+    <script>
+      const inCheck = document.querySelector("#in-check-1");
+      const descripton = document.querySelector("#descripton-1");
+
+      function add() {
+        const req = {
+          inCheck: inCheck.value,
+          descripton: descripton.value,
+        };
+
+        fetch("/lists", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(req),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (!res.success) alert(res.msg);
+          })
+          .catch((err) => {
+            console.error("리스트 추가 중 에러 발생");
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="contener">
+      <h3>To Do List</h3>
+      <div class="base">
+        <button class="add-button" type="button" onclick="add();"></button>
+      </div>
+      <!--add 버튼 누르면 추가되야할 부분들 1-->
+      <div class="add">
+        <input id="in-check-1" class="checkbox" type="checkbox" name="" />
+        <input id="descripton-1" type="text" name="" value="할 일 1" disabled />
+        <button class="pan" type="button">p</button>
+        <button class="waste" type="button">w</button>
+      </div>
+      <!--끝-->
+
+      <!--add 버튼 누르면 추가되야할 부분들 2 + 체크박스 눌리면 변할 요소들-->
+      <div class="add">
+        <input class="checkbox" type="checkbox" name="" checked />
+        <input type="text" name="" value="할 일 2 , del 적용" disabled />
+        <button class="pan" type="button">p</button>
+        <button class="waste" type="button">w</button>
+      </div>
+      <!--끝-->
+
+      <!--add 버튼 누르면 추가되야할 부분들 3 + 연필버튼 눌렀을때 변할 요소들 후-->
+      <div class="add">
+        <input class="checkbox" type="checkbox" name="" disabled />
+        <!--비활성화 되야함-->
+        <input type="text" name="" value="할 일 3" />
+        <!--input text 변환 + value = 이너html-->
+        <button class="pan" type="button">완료</button>
+        <!--버튼을 완료 텍스트로 변환-->
+        <button class="waste" type="button">w</button>
+      </div>
+      <!--끝-->
+    </div>
+  </body>
+</html>
