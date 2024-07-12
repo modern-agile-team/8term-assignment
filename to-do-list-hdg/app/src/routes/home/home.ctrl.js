@@ -20,6 +20,18 @@ const process = {
     const response = await list.getLists();
     return res.json(response);
   },
+
+  updateList: async (req, res) => {
+    const list = new List(req.body);
+    const response = await list.updateList(Number(req.params.id));
+    return res.json(response);
+  },
+
+  deleteList: async (req, res) => {
+    const list = new List();
+    const response = await list.deleteList(Number(req.params.id));
+    return res.json(response);
+  },
 };
 
 module.exports = {

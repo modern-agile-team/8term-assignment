@@ -9,13 +9,14 @@ class List {
 
   async createList() {
     return new Promise((resolve, reject) => {
-      const query = "INSERT INTO list (is_check , description) VALUES ( ? , ?)";
+      const query =
+        "INSERT INTO list (is_check , description) VALUES ( ? , ? )";
       db.query(
         query,
         [this.body.in_check, this.body.description],
         (err, data) => {
           if (err) reject(`${err}`);
-          resolve({ success: true });
+          resolve({ success: true, data });
         }
       );
     });
@@ -26,24 +27,35 @@ class List {
       const query = "SELECT id , is_check , description FROM list";
       db.query(query, (err, data) => {
         if (err) reject(`${err}`);
-        resolve(data);
+        resolve({ success: true, data });
       });
     });
   }
 
-  async updateList() {
+  async updateList(id) {
     return new Promise((resolve, reject) => {
       const query =
-        "UPDATE list SET description = ? , in_check = ? where id = ?;";
-      db.query(query, [, ,], (err, data) => {
-        // 이곳 수정이 필요함 ^
-        if (err) reject(`${err}`);
-        resolve(data);
-      });
+        "UPDATE list SET description = ? , is_check = ? where id = ?;";
+      db.query(
+        query,
+        [this.body.description, this.body.in_check, id],
+        (err, data) => {
+          if (err) reject(`${err}`);
+          resolve({ success: true, data });
+        }
+      );
     });
   }
 
-  deleteList() {}
+  async deleteList(id) {
+    return new Promise((resolve, reject) => {
+      const query = "DELETE FROM list WHERE id = ?";
+      db.query(query, [id], (err, data) => {
+        if (err) reject(`${err}`);
+        resolve({ success: true, data });
+      });
+    });
+  }
 }
 
 module.exports = List;
