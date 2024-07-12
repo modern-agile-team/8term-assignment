@@ -74,6 +74,7 @@ function fetchTodos() {
         const childDiv = todoList.appendChild(div);
         // div 요소에 id 속성 추가
         childDiv.setAttribute('id', todo.id);
+        childDiv.setAttribute('class', 'list');
         div.style.border = '1px solid grey';
 
         if (todo.is_check) {

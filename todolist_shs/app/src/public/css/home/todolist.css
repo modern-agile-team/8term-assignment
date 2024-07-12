@@ -54,6 +54,10 @@ input::placeholder {
   line-height: 250%;
 }
 
+.list:hover {
+  background-color: #e0e0e0;
+}
+
 #list-text {
   background-color: transparent;
   border: none;
