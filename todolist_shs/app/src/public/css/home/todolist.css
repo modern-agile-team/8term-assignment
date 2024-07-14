@@ -58,6 +58,8 @@ input::placeholder {
 }
 
 .list {
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid #9a9a9a;
   margin: auto;
   width: 90%;
@@ -73,6 +75,8 @@ input::placeholder {
   outline: none;
   width: 75%;
   color: black;
+  overflow: hidden;
+  resize: none;
 }
 
 /* 체크박스 */
@@ -87,7 +91,7 @@ input::placeholder {
   padding: 0;
   cursor: pointer;
   position: relative;
-  top: -1.5%;
+  top: -0.5%;
 }
 
 #plus-button img {

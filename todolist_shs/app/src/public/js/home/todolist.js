@@ -79,9 +79,9 @@ function fetchTodos() {
           <input type="checkbox" id="complete-line" name="todo" ${
             todo.is_check ? 'checked' : ''
           } onclick="Check(this)">
-          <input type="text" id="list-text" disabled value="${
+          <textarea id="list-text" rows="1" disabled>${
             todo.description
-          }">
+          }</textarea>
           <span>
               <!-- 수정 아이콘 -->
               <img src="https://cdn0.iconfinder.com/data/icons/zondicons/20/edit-pencil-64.png" id="edit" onclick="editItem(this)">
@@ -102,6 +102,9 @@ function fetchTodos() {
           listText.style.textDecorationThickness = '1px';
           listText.style.color = 'grey';
         }
+
+        // autoResize 호출
+        autoResize(div.querySelector('#list-text'));
       });
     })
     .catch((err) => console.error('Error:', err));
