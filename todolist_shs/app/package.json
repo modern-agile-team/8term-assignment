@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mysql2": "^3.10.2",
+    "nodemon": "^3.1.4"
+  },
+  "name": "todolist_shs",
+  "version": "1.0.0",
+  "main": "app.js",
+  "bin": {
+    "todolist_shs": "www.js"
+  },
+  "scripts": {
+    "start": "npm-run-all --parallel start-json start-app",
+    "start-json": "json-server --watch db.json --port 3001",
+    "start-app": "nodemon ./bin/www.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

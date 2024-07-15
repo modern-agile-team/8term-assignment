@@ -1,0 +1,135 @@
+/* 에스코어드림 웹폰트 */
+@font-face {
+  font-family: 'S-CoreDream-3Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 모든 글씨 웹폰트 적용 */
+* {
+  font-family: 'S-CoreDream-3Light' !important;
+}
+
+/* To do list */
+#box {
+  background-color: #f1f1f1;
+
+  border-radius: 30px;
+  width: 405px;
+  height: 152px;
+  padding-bottom: 20px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  box-shadow: 1px 3px 5px gray;
+
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 65px;
+}
+
+/* To do list 박스 위치 고정 */
+body {
+  display: flex;
+  justify-content: center;
+  margin: 5%;
+}
+
+/* 입력란 */
+#input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 60%;
+  font-size: 65%;
+  overflow: hidden;
+  resize: none;
+}
+
+input::placeholder {
+  padding-top: 2px;
+}
+
+#todo-list {
+  font-size: 65%;
+  line-height: 250%;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #9a9a9a;
+  margin: auto;
+  width: 90%;
+}
+
+.list:hover {
+  background-color: #e0e0e0;
+}
+
+#list-text {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 75%;
+  color: black;
+  overflow: hidden;
+  resize: none;
+}
+
+/* 체크박스 */
+#complete-line {
+  accent-color: black;
+}
+
+/* 추가 */
+#plus-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  top: -0.5%;
+}
+
+#plus-button img {
+  width: 20px;
+  height: auto;
+}
+
+#plus-button img:hover {
+  width: 22px;
+  height: auto;
+}
+
+/* 수정 */
+#edit {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+#edit:hover {
+  width: 22px;
+  height: auto;
+}
+
+/* 삭제 */
+#delete {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+#delete:hover {
+  width: 22px;
+  height: auto;
+}
+
+/* 밑줄 */
+hr {
+  width: 70%;
+  margin-top: -5.5%;
+}
