@@ -1,0 +1,65 @@
+.contener {
+  width: 405px;
+  top: 168px;
+  background-color: #f1f1f1;
+  border: 2px solid #e0e0e0;
+  padding-left: 15px;
+  box-sizing: border-box;
+  padding-bottom: 15px;
+}
+.base {
+  width: 359.23px;
+  height: 34px;
+  top: 69px;
+  left: 23.88px;
+  gap: 0px;
+  border-bottom: 1px solid #cbcbcb;
+  opacity: 0px;
+}
+.add {
+  width: 359.23px;
+  height: 34px;
+  top: 69px;
+  left: 23.88px;
+  gap: 0px;
+  border-bottom: 1px solid #cbcbcb;
+  opacity: 0px;
+  display: flex; /* 추가됨 */
+  justify-content: space-between;
+  align-items: center; /* 추가됨 */
+}
+.add:hover {
+  background: #e0e0e0;
+}
+
+.add-button {
+  width: 21.94px;
+  height: 21.88px;
+  top: 72px;
+  left: 361.28px;
+  gap: 0px;
+  opacity: 0px;
+  float: right;
+}
+.checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+.text {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.94px;
+  text-align: left;
+}
+
+del {
+  color: #797979;
+}
+
+.btn {
+  margin-left: auto; /* 자동 여백을 추가하여 오른쪽 정렬 */
+  display: flex;
+  gap: 5px; /* 오른쪽 요소들 간의 간격 설정 */
+}

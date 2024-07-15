@@ -28,3 +28,29 @@
 </div>
 <!--끝-->
 </div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Align Right Example</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .right {
+            margin-left: auto; /* 자동 여백을 추가하여 오른쪽 정렬 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>태그 1</div>
+        <div>태그 2</div>
+        <div>태그 3</div>
+        <span class="right">오른쪽에 있는 텍스트</span>
+    </div>
+</body>
+</html>

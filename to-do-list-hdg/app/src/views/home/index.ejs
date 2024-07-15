@@ -4,72 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>to do list</title>
-    <style>
-      .contener {
-        width: 405px;
-        top: 168px;
-        background-color: #f1f1f1;
-        border: 2px solid #e0e0e0;
-        padding-left: 15px;
-        box-sizing: border-box;
-        padding-bottom: 15px;
-      }
-      .base {
-        width: 359.23px;
-        height: 34px;
-        top: 69px;
-        left: 23.88px;
-        gap: 0px;
-        border-bottom: 1px solid #cbcbcb;
-        opacity: 0px;
-      }
-      .add {
-        width: 359.23px;
-        height: 34px;
-        top: 69px;
-        left: 23.88px;
-        gap: 0px;
-        border-bottom: 1px solid #cbcbcb;
-        opacity: 0px;
-      }
-      .add:hover {
-        background: #e0e0e0;
-      }
-
-      .add-button {
-        width: 21.94px;
-        height: 21.88px;
-        top: 72px;
-        left: 361.28px;
-        gap: 0px;
-        opacity: 0px;
-        float: right;
-      }
-      .checkbox {
-        width: 18px;
-        height: 18px;
-        top: 133px;
-        left: 29px;
-        gap: 0px;
-        border-radius: 3px 0px 0px 0px;
-        border-bottom: 1px solid #cbcbcb;
-        opacity: 0px;
-      }
-      .text {
-        font-family: Inter;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 16.94px;
-        text-align: left;
-      }
-
-      del {
-        color: #797979;
-      }
-    </style>
+    <link rel="stylesheet" href="/css/home/index.css" />
     <script>
-      const inCheck = document.querySelector("#in-check-1");
-      const descripton = document.querySelector("#descripton-1");
       let list;
 
       document.addEventListener('DOMContentLoaded', async ()=>{
@@ -87,42 +23,100 @@
 
           //div add 를 contener에 추가
           let divAdd = document.createElement('div');
+          divAdd.setAttribute('id', id);
           divAdd.setAttribute('class', 'add');
           contenerDiv.appendChild(divAdd);
-
+          
           //checkbox를 add 에 생성
           let checkbox = document.createElement('input');
           checkbox.setAttribute('class', 'checkbox');
           checkbox.setAttribute('type', 'checkbox');
-          checkbox.setAttribute('checked', is_check);
-          checkbox.addEventListener('click', toggleText(this,description));
-          //체크박스 체크됬으면 del 걸기
-          if(checkbox.checked){
-            let del = document.createElement('del');
-            text.innerHTML = `<del>${list.data[i].description}</del>`;
-          } else {
-            text.innerHTML = list.data[i].description;
-          }
+          if(is_check) checkbox.setAttribute('checked',true);
+          checkbox.addEventListener('click', toggleText);
           divAdd.appendChild(checkbox);
 
           //text 를 만들기
           let text = document.createElement('span');
           divAdd.appendChild(text);
-          
-          
-          
 
-          
+          //button 만들기
+          let divBtn = document.createElement('div');
+          divBtn.setAttribute('class', 'btn');
+          divAdd.appendChild(divBtn);
+
+          //수정
+          let updateBtn = document.createElement('button');
+          updateBtn.addEventListener('click', update);
+          divBtn.appendChild(updateBtn);
+          updateBtn.innerHTML = '수정';
+
+          //삭제
+          let wasteBtn = document.createElement('button');
+          wasteBtn.addEventListener('click', deleteBtn);
+          divBtn.appendChild(wasteBtn);
+          wasteBtn.innerHTML = '삭제';
+
+          //체크박스 체크됬으면 del 걸기
+          if(checkbox.checked){
+            let del = document.createElement('del');
+            text.appendChild(del);
+            del.innerHTML = `${description}`;
+          } else {
+            text.innerHTML = `${description}`;
+          }
         }
       }
 
-      function addList() {
+      async function add(){
+        const contenerDiv = document.querySelector(".contener");
+
+        //div add 를 contener에 추가
+        let divAdd = document.createElement('div');
+        divAdd.setAttribute('class', 'add');
+        contenerDiv.appendChild(divAdd);
+
+        //checkbox를 add 에 생성
+        let checkbox = document.createElement('input');
+        checkbox.setAttribute('class', 'checkbox');
+        checkbox.setAttribute('type', 'checkbox');
+        checkbox.addEventListener('click', toggleText);
+        divAdd.appendChild(checkbox);
+
+        //text 를 만들기
+        let text = document.createElement('span');
+        divAdd.appendChild(text);
+        text.innerHTML = `할 일 ${contenerDiv.querySelectorAll('.add').length}`;
+
+        //button 만들기
+        let divBtn = document.createElement('div');
+        divBtn.setAttribute('class', 'btn');
+        divAdd.appendChild(divBtn);
+
+        //수정
+        let updateBtn = document.createElement('button');
+        updateBtn.addEventListener('click', update);
+        divBtn.appendChild(updateBtn);
+        updateBtn.innerHTML = '수정';
+
+        //삭제
+        let wasteBtn = document.createElement('button');
+        wasteBtn.addEventListener('click', deleteBtn);
+        divBtn.appendChild(wasteBtn);
+        wasteBtn.innerHTML = '삭제';
+
+        //post 요청
+        let id = await addList(false, text.innerHTML);
+        divAdd.setAttribute('id', id);
+      }
+
+      function addList(is_check,description) {
+        console.log(is_check,description);
         const req = {
-          inCheck: inCheck.value,
-          descripton: descripton.value,
+          "is_check" :is_check,
+          "description":description
         };
 
-        fetch("/lists", {
+        return fetch("/lists", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -132,10 +126,14 @@
           .then((res) => res.json())
           .then((res) => {
             if (!res.success) alert(res.msg);
+            console.log(res.data.insertId)
+            return res.data.insertId;
           })
           .catch((err) => {
-            console.error("리스트 추가 중 에러 발생");
+            console.error("리스트 추가 중 에러 발생",err);
           });
+
+        
       }
 
       function getLists(func) {
@@ -143,12 +141,7 @@
           .then((res) => res.json())
           .then((res) => {
             if (!res.success) alert(res.msg);
-            list = res
-            console.log("리스트는 : ",list);
-            console.log("리스트 success는 : ",list.success);
-            console.log("리스트 data는 : ",list.data);
-            console.log("리스트 data[0]는 : ",list.data[0]);
-            console.log("리스트 description",list.data[0].description)
+            list = res;
             if(func) func();
           })
           .catch((err) => {
@@ -156,13 +149,19 @@
           });
       }
 
-      function updateList() {
+      function updateList(is_check,description,id) {
         const req = {
-          inCheck: inCheck.value,
-          descripton: descripton.value,
+          "is_check" :is_check,
+          "description":description
         };
 
-        fetch(`/lists/${id}`)
+        fetch(`/lists/${id}`,{
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(req),
+        })
           .then((res) => res.json())
           .then((res) => {
             if (!res.success) alert(res.msg);
@@ -183,13 +182,45 @@
           });
       }
 
-      function toggleText(checkbox,text){
-        if(checkbox.checked){
-            let del = document.createElement('del');
-            text.innerHTML = `<del>${text}</del>`;
-          } else {
-            text.innerHTML = text;
-          }
+      function toggleText(){
+        const parentAdd = this.parentElement;
+        const childText = parentAdd.querySelector('span');
+        const del = childText.querySelector('del');
+        const text = (del)? del.innerHTML : childText.innerHTML;
+
+        if(this.checked){
+          console.log("체크됨")
+          childText.innerHTML = `<del>${text}</del>`;
+        } else {
+          console.log("체크안됨")
+          childText.innerHTML = `${text}`;
+        }
+
+        updateList(this.checked, text, parentAdd.id);
+      }
+
+      function update(){
+        console.log("수정");
+        const parentAdd = this.parentElement.parentElement;
+        const childText = parentAdd.querySelector('span');
+        const del = childText.querySelector('del');
+        const text = (del)? del.innerHTML : childText.innerHTML;
+        
+        if (this.innerHTML === '수정') {
+          let update = document.createElement('input');
+          update.setAttribute('value', text);
+
+          this.innerHTML = '완료';
+        } else {
+          this.innerHTML = '수정';
+        }
+
+
+        
+      }
+
+      function deleteBtn(){
+        console.log("삭제");
       }
 
     </script>
@@ -199,7 +230,7 @@
 
       <h3>To Do List</h3>
       <div class="base">
-        <button class="add-button" type="button" onclick="addList();"></button>
+        <button class="add-button" type="button" onclick="add();"></button>
       </div>
   
   </body>

@@ -13,7 +13,7 @@ class List {
         "INSERT INTO list (is_check , description) VALUES ( ? , ? )";
       db.query(
         query,
-        [this.body.in_check, this.body.description],
+        [this.body.is_check, this.body.description],
         (err, data) => {
           if (err) reject(`${err}`);
           resolve({ success: true, data });
@@ -38,7 +38,7 @@ class List {
         "UPDATE list SET description = ? , is_check = ? where id = ?;";
       db.query(
         query,
-        [this.body.description, this.body.in_check, id],
+        [this.body.description, this.body.is_check, id],
         (err, data) => {
           if (err) reject(`${err}`);
           resolve({ success: true, data });
