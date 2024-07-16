@@ -40,6 +40,8 @@
   gap: 0px;
   opacity: 0px;
   float: right;
+
+  padding-right: 27px;
 }
 .checkbox {
   width: 18px;
@@ -69,4 +71,37 @@ del {
   height: 29px;
   border: 0px solid #ccc;
   background-color: #f1f1f1;
+}
+
+image {
+  width: 12px;
+  height: 12px;
+  object-fit: cover;
+}
+
+.pen {
+  width: 12px;
+  height: 12px;
+  object-fit: cover;
+}
+
+.waste {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+
+.add-button-img {
+  width: 22px;
+  height: 22px;
+  object-fit: cover;
+}
+
+.update {
+  padding-right: 0px;
 }

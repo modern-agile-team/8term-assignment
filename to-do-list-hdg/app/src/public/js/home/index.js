@@ -1,8 +1,22 @@
 let list;
 
+//이부분 수정이 필요함
+let img;
+
+const panImage =
+  "https://cdn3.iconfinder.com/data/icons/font-awesome-solid/512/pen-1024.png";
+
+const wasteImage =
+  "https://cdn2.iconfinder.com/data/icons/kitchenware-solid-cookery/512/Trash_Can-1024.png";
+
 document.addEventListener("DOMContentLoaded", async () => {
   getLists(createContener);
 });
+
+let updateImage = document.createElement("img");
+updateImage.setAttribute("src", panImage);
+updateImage.setAttribute("class", "pen");
+updateBtn.appendChild(updateImage);
 
 function createContener() {
   const contenerDiv = document.querySelector(".contener");
@@ -26,34 +40,61 @@ function createContener() {
     checkbox.addEventListener("click", toggleText);
     divAdd.appendChild(checkbox);
 
+    //text div 를 만들기
+    let textAdd = document.createElement("div");
+    textAdd.setAttribute("class", "text");
+    divAdd.appendChild(textAdd);
+
     //text 를 만들기
     let text = document.createElement("span");
-    divAdd.appendChild(text);
+    textAdd.appendChild(text);
 
-    //button 만들기
+    //input 만들기
+    let inp = document.createElement("input");
+    inp.setAttribute("type", "text");
+    inp.setAttribute("class", "input");
+    inp.setAttribute("value", `${description}`);
+    inp.addEventListener("keypress", updateEnter);
+    textAdd.appendChild(inp);
+    inp.style.display = "none";
+
+    //button div 만들기
     let divBtn = document.createElement("div");
     divBtn.setAttribute("class", "btn");
     divAdd.appendChild(divBtn);
 
     //수정
     let updateBtn = document.createElement("button");
+    updateBtn.setAttribute("class", "update");
     updateBtn.addEventListener("click", update);
     divBtn.appendChild(updateBtn);
-    updateBtn.innerHTML = "수정";
+
+    //수정 이미지
+    let updateImage = document.createElement("img");
+    updateImage.setAttribute("src", panImage);
+    updateImage.setAttribute("class", "pen");
+    updateBtn.appendChild(updateImage);
 
     //삭제
     let wasteBtn = document.createElement("button");
     wasteBtn.addEventListener("click", deleteBtn);
     divBtn.appendChild(wasteBtn);
-    wasteBtn.innerHTML = "삭제";
+
+    //삭제 이미지
+    let deleteImage = document.createElement("img");
+    deleteImage.setAttribute("src", wasteImage);
+    deleteImage.setAttribute("class", "waste");
+    wasteBtn.appendChild(deleteImage);
 
     //체크박스 체크됬으면 del 걸기
     if (checkbox.checked) {
       let del = document.createElement("del");
       text.appendChild(del);
       del.innerHTML = `${description}`;
+      updateBtn.style.display = "none";
     } else {
       text.innerHTML = `${description}`;
+      updateBtn.style.display = "block";
     }
   }
 }
@@ -75,12 +116,26 @@ async function add(input) {
   checkbox.addEventListener("click", toggleText);
   divAdd.appendChild(checkbox);
 
+  //text div 를 만들기
+  let textAdd = document.createElement("div");
+  textAdd.setAttribute("class", "text");
+  divAdd.appendChild(textAdd);
+
   //text 를 만들기
   let text = document.createElement("span");
-  divAdd.appendChild(text);
+  textAdd.appendChild(text);
   text.innerHTML = `${input.value}`;
 
-  //button 만들기
+  //input 만들기
+  let inp = document.createElement("input");
+  inp.setAttribute("type", "text");
+  inp.setAttribute("class", "input");
+  inp.setAttribute("value", `${input.value}`);
+  inp.addEventListener("keypress", updateEnter);
+  textAdd.appendChild(inp);
+  inp.style.display = "none";
+
+  //button div 만들기
   let divBtn = document.createElement("div");
   divBtn.setAttribute("class", "btn");
   divAdd.appendChild(divBtn);
@@ -89,17 +144,26 @@ async function add(input) {
   let updateBtn = document.createElement("button");
   updateBtn.addEventListener("click", update);
   divBtn.appendChild(updateBtn);
-  updateBtn.innerHTML = "수정";
+
+  //수정 이미지
+  let updateImage = document.createElement("img");
+  updateImage.setAttribute("src", panImage);
+  updateImage.setAttribute("class", "pen");
+  updateBtn.appendChild(updateImage);
 
   //삭제
   let wasteBtn = document.createElement("button");
   wasteBtn.addEventListener("click", deleteBtn);
   divBtn.appendChild(wasteBtn);
-  wasteBtn.innerHTML = "삭제";
+
+  //삭제 이미지
+  let deleteImage = document.createElement("img");
+  deleteImage.setAttribute("src", wasteImage);
+  deleteImage.setAttribute("class", "waste");
+  wasteBtn.appendChild(deleteImage);
 
   //input.value 초기화
   input.value = "";
-  console.log(input);
 
   //post 요청
   let id = await addList(false, text.innerHTML);
@@ -107,7 +171,6 @@ async function add(input) {
 }
 
 function addList(is_check, description) {
-  console.log(is_check, description);
   const req = {
     is_check: is_check,
     description: description,
@@ -123,7 +186,6 @@ function addList(is_check, description) {
     .then((res) => res.json())
     .then((res) => {
       if (!res.success) alert(res.msg);
-      console.log(res.data.insertId);
       return res.data.insertId;
     })
     .catch((err) => {
@@ -184,15 +246,16 @@ function deleteList(id) {
 
 function toggleText() {
   const parentAdd = this.parentElement;
+  const updateBtn = parentAdd.querySelector(".update");
   const childText = parentAdd.querySelector("span");
   const del = childText.querySelector("del");
   const text = del ? del.innerHTML : childText.innerHTML;
 
   if (this.checked) {
-    console.log("체크됨");
+    updateBtn.style.display = "none";
     childText.innerHTML = `<del>${text}</del>`;
   } else {
-    console.log("체크안됨");
+    updateBtn.style.display = "block";
     childText.innerHTML = `${text}`;
   }
 
@@ -201,25 +264,40 @@ function toggleText() {
 
 function update() {
   const parentAdd = this.parentElement.parentElement;
-  const childText = parentAdd.querySelector("span");
+  const childText = parentAdd.querySelector(".text").querySelector("span");
+  const childInput = parentAdd.querySelector(".text").querySelector("input");
+  const checkbox = parentAdd.querySelector(".checkbox");
+
+  //이부분 수정이 필요함
+  img = this.querySelector("img") || img;
+  console.log(img);
+
   const del = childText.querySelector("del");
   const text = del ? del.innerHTML : childText.innerHTML;
+  if (this.innerHTML === "완료") {
+    this.innerHTML = "";
+    img.style.display = "block";
+    checkbox.disabled = false;
+    childText.style.display = "block";
+    childInput.style.display = "none";
 
-  if (this.innerHTML === "수정") {
-    //let update = document.createElement("input");
-    //update.setAttribute("value", text);
-    //update.appendChild(parentAdd);
-
-    this.innerHTML = "완료";
+    if (childInput.value === "") return alert("입력창에 입력하세요");
+    if (childInput.value !== text) {
+      updateList(checkbox.checked, childInput.value, parentAdd.id);
+      location.reload(true);
+    }
   } else {
-    this.innerHTML = "수정";
+    checkbox.disabled = true;
+    childText.style.display = "none";
+    childInput.style.display = "block";
+    childInput.focus();
+    img.style.display = "none";
+    this.innerHTML = "완료";
   }
 }
 
 function deleteBtn() {
-  console.log("삭제");
   const parentAdd = this.parentElement.parentElement;
-  console.log("삭제", parentAdd.id);
   deleteList(parentAdd.id);
   location.reload(true);
 }
@@ -233,4 +311,38 @@ function enter(event, input) {
     input.blur();
     add(input);
   }
+}
+
+function updateEnter(event) {
+  const input = event.currentTarget;
+  const parentAdd = input.parentElement.parentElement;
+  const checkbox = parentAdd.querySelector(".checkbox");
+  if (event.key === "Enter") {
+    if (!input.value) {
+      alert("입력창에 입력하세요");
+      return;
+    }
+    updateList(checkbox.checked, input.value, parentAdd.id);
+    location.reload(true);
+  }
+}
+
+function panImages(updateBtn) {
+  //수정 이미지
+  let updateImage = document.createElement("img");
+  updateImage.setAttribute("src", panImage);
+  updateImage.setAttribute("class", "pen");
+  updateBtn.appendChild(updateImage);
+
+  return updateImage;
+}
+
+function wasteImages(wasteBtn) {
+  //삭제 이미지
+  let deleteImage = document.createElement("img");
+  deleteImage.setAttribute("src", wasteImage);
+  deleteImage.setAttribute("class", "waste");
+  wasteBtn.appendChild(deleteImage);
+
+  return deleteImage;
 }
