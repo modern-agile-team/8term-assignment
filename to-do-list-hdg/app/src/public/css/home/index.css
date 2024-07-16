@@ -63,3 +63,10 @@ del {
   display: flex;
   gap: 5px; /* 오른쪽 요소들 간의 간격 설정 */
 }
+
+.input {
+  width: 300 px;
+  height: 29px;
+  border: 0px solid #ccc;
+  background-color: #f1f1f1;
+}
