@@ -339,23 +339,3 @@ function autoResize(event) {
   const input = event.currentTarget;
   resize(input);
 }
-
-// function panImages(updateBtn) {
-//   //수정 이미지
-//   let updateImage = document.createElement("img");
-//   updateImage.setAttribute("src", panImage);
-//   updateImage.setAttribute("class", "pen");
-//   updateBtn.appendChild(updateImage);
-
-//   return updateImage;
-// }
-
-// function wasteImages(wasteBtn) {
-//   //삭제 이미지
-//   let deleteImage = document.createElement("img");
-//   deleteImage.setAttribute("src", wasteImage);
-//   deleteImage.setAttribute("class", "waste");
-//   wasteBtn.appendChild(deleteImage);
-
-//   return deleteImage;
-// }
