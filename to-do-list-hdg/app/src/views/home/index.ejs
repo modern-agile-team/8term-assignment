@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>to do list</title>
+    <link rel="stylesheet" href="/css/home/index.css" />
+    <script src="/js/home/index.js"></script>
+  </head>
+  <body>
+    <div class="contener">       
+      <h3>To Do List</h3>
+      <div class="base">
+        <input id="input" class="input" type="text" placeholder="여기에 입력하세요" onkeypress="enter(event, this);" autofocus>
+        <button class="add-button" type="button" onclick="add(this.previousElementSibling);"><img class="add-button-img" src="https://cdn0.iconfinder.com/data/icons/essentials-solid-glyphs-vol-1/100/Add-Plus-More-512.png"></button>
+      </div>
+  </body>
+</html>
