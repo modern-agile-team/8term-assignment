@@ -1,8 +1,5 @@
 let list;
 
-//이부분 수정이 필요함
-let img;
-
 const panImage =
   "https://cdn3.iconfinder.com/data/icons/font-awesome-solid/512/pen-1024.png";
 
@@ -12,11 +9,6 @@ const wasteImage =
 document.addEventListener("DOMContentLoaded", async () => {
   getLists(createContener);
 });
-
-let updateImage = document.createElement("img");
-updateImage.setAttribute("src", panImage);
-updateImage.setAttribute("class", "pen");
-updateBtn.appendChild(updateImage);
 
 function createContener() {
   const contenerDiv = document.querySelector(".contener");
@@ -46,17 +38,15 @@ function createContener() {
     divAdd.appendChild(textAdd);
 
     //text 를 만들기
-    let text = document.createElement("span");
+    let text = document.createElement("textarea");
+    text.setAttribute("disabled", true);
+    text.addEventListener("keypress", updateEnter);
+    text.addEventListener("input", autoResize);
     textAdd.appendChild(text);
-
-    //input 만들기
-    let inp = document.createElement("input");
-    inp.setAttribute("type", "text");
-    inp.setAttribute("class", "input");
-    inp.setAttribute("value", `${description}`);
-    inp.addEventListener("keypress", updateEnter);
-    textAdd.appendChild(inp);
-    inp.style.display = "none";
+    text.innerHTML = `${description}`;
+    text.style.height = "auto";
+    text.style.height = `${text.scrollHeight}px`;
+    console.log(text.scrollHeight);
 
     //button div 만들기
     let divBtn = document.createElement("div");
@@ -75,6 +65,12 @@ function createContener() {
     updateImage.setAttribute("class", "pen");
     updateBtn.appendChild(updateImage);
 
+    //수정 완료
+    let completion = document.createElement("span");
+    updateBtn.appendChild(completion);
+    completion.innerHTML = "완료";
+    completion.style.display = "none";
+
     //삭제
     let wasteBtn = document.createElement("button");
     wasteBtn.addEventListener("click", deleteBtn);
@@ -88,14 +84,16 @@ function createContener() {
 
     //체크박스 체크됬으면 del 걸기
     if (checkbox.checked) {
-      let del = document.createElement("del");
-      text.appendChild(del);
-      del.innerHTML = `${description}`;
       updateBtn.style.display = "none";
+      text.style.textDecoration = "line-through";
+      text.style.color = "#797979";
     } else {
-      text.innerHTML = `${description}`;
-      updateBtn.style.display = "block";
+      text.style.textDecoration = "none";
+      text.style.color = "#545454";
     }
+
+    //textarea 크기
+    resize(text);
   }
 }
 
@@ -122,18 +120,15 @@ async function add(input) {
   divAdd.appendChild(textAdd);
 
   //text 를 만들기
-  let text = document.createElement("span");
+  let text = document.createElement("textarea");
+  text.setAttribute("disabled", true);
   textAdd.appendChild(text);
+  text.addEventListener("keypress", updateEnter);
+  text.addEventListener("input", autoResize);
   text.innerHTML = `${input.value}`;
-
-  //input 만들기
-  let inp = document.createElement("input");
-  inp.setAttribute("type", "text");
-  inp.setAttribute("class", "input");
-  inp.setAttribute("value", `${input.value}`);
-  inp.addEventListener("keypress", updateEnter);
-  textAdd.appendChild(inp);
-  inp.style.display = "none";
+  text.style.height = "auto";
+  text.style.height = `${text.scrollHeight}px`;
+  console.log(text.scrollHeight);
 
   //button div 만들기
   let divBtn = document.createElement("div");
@@ -143,6 +138,7 @@ async function add(input) {
   //수정
   let updateBtn = document.createElement("button");
   updateBtn.addEventListener("click", update);
+  updateBtn.setAttribute("class", "update");
   divBtn.appendChild(updateBtn);
 
   //수정 이미지
@@ -150,6 +146,12 @@ async function add(input) {
   updateImage.setAttribute("src", panImage);
   updateImage.setAttribute("class", "pen");
   updateBtn.appendChild(updateImage);
+
+  //수정 완료
+  let completion = document.createElement("span");
+  updateBtn.appendChild(completion);
+  completion.innerHTML = "완료";
+  completion.style.display = "none";
 
   //삭제
   let wasteBtn = document.createElement("button");
@@ -168,6 +170,9 @@ async function add(input) {
   //post 요청
   let id = await addList(false, text.innerHTML);
   divAdd.setAttribute("id", id);
+
+  //textarea 크기 맞추기
+  resize(text);
 }
 
 function addList(is_check, description) {
@@ -207,6 +212,9 @@ function getLists(func) {
 }
 
 function updateList(is_check, description, id) {
+  console.log("업뎃", is_check);
+  console.log("업뎃", description);
+  console.log("업뎃", id);
   const req = {
     is_check: is_check,
     description: description,
@@ -247,52 +255,44 @@ function deleteList(id) {
 function toggleText() {
   const parentAdd = this.parentElement;
   const updateBtn = parentAdd.querySelector(".update");
-  const childText = parentAdd.querySelector("span");
-  const del = childText.querySelector("del");
-  const text = del ? del.innerHTML : childText.innerHTML;
+  const childText = parentAdd.querySelector("textarea");
 
   if (this.checked) {
     updateBtn.style.display = "none";
-    childText.innerHTML = `<del>${text}</del>`;
+    childText.style.textDecoration = "line-through";
+    childText.style.color = "#797979";
   } else {
     updateBtn.style.display = "block";
-    childText.innerHTML = `${text}`;
+    childText.style.textDecoration = "none";
+    childText.style.color = "#545454";
   }
-
-  updateList(this.checked, text, parentAdd.id);
+  console.log(childText.value);
+  updateList(this.checked, childText.value, parentAdd.id);
 }
 
 function update() {
   const parentAdd = this.parentElement.parentElement;
-  const childText = parentAdd.querySelector(".text").querySelector("span");
-  const childInput = parentAdd.querySelector(".text").querySelector("input");
+  const childText = parentAdd.querySelector(".text").querySelector("textarea");
   const checkbox = parentAdd.querySelector(".checkbox");
+  const updateImage = this.querySelector(".pen");
+  const completion = this.querySelector("span");
 
-  //이부분 수정이 필요함
-  img = this.querySelector("img") || img;
-  console.log(img);
-
-  const del = childText.querySelector("del");
-  const text = del ? del.innerHTML : childText.innerHTML;
-  if (this.innerHTML === "완료") {
-    this.innerHTML = "";
-    img.style.display = "block";
-    checkbox.disabled = false;
-    childText.style.display = "block";
-    childInput.style.display = "none";
-
-    if (childInput.value === "") return alert("입력창에 입력하세요");
-    if (childInput.value !== text) {
-      updateList(checkbox.checked, childInput.value, parentAdd.id);
-      location.reload(true);
-    }
-  } else {
+  if (completion.style.display === "none") {
     checkbox.disabled = true;
-    childText.style.display = "none";
-    childInput.style.display = "block";
-    childInput.focus();
-    img.style.display = "none";
-    this.innerHTML = "완료";
+    childText.disabled = false;
+    childText.focus();
+    childText.selectionStart = childText.selectionEnd = childText.value.length;
+    updateImage.style.display = "none";
+    completion.style.display = "block";
+  } else {
+    checkbox.disabled = false;
+    childText.disabled = true;
+    updateImage.style.display = "block";
+    completion.style.display = "none";
+
+    if (childText.value === "") return alert("입력창에 입력하세요");
+    updateList(checkbox.checked, childText.value, parentAdd.id);
+    location.reload(true);
   }
 }
 
@@ -327,22 +327,35 @@ function updateEnter(event) {
   }
 }
 
-function panImages(updateBtn) {
-  //수정 이미지
-  let updateImage = document.createElement("img");
-  updateImage.setAttribute("src", panImage);
-  updateImage.setAttribute("class", "pen");
-  updateBtn.appendChild(updateImage);
-
-  return updateImage;
+function resize(input) {
+  console.log("사이즈 바뀜");
+  input.style.height = "auto";
+  input.style.height = input.scrollHeight + "px";
+  input.parentElement.style.height = input.scrollHeight + "px";
+  input.parentElement.parentElement.style.height = input.scrollHeight + "px";
 }
 
-function wasteImages(wasteBtn) {
-  //삭제 이미지
-  let deleteImage = document.createElement("img");
-  deleteImage.setAttribute("src", wasteImage);
-  deleteImage.setAttribute("class", "waste");
-  wasteBtn.appendChild(deleteImage);
-
-  return deleteImage;
+function autoResize(event) {
+  const input = event.currentTarget;
+  resize(input);
 }
+
+// function panImages(updateBtn) {
+//   //수정 이미지
+//   let updateImage = document.createElement("img");
+//   updateImage.setAttribute("src", panImage);
+//   updateImage.setAttribute("class", "pen");
+//   updateBtn.appendChild(updateImage);
+
+//   return updateImage;
+// }
+
+// function wasteImages(wasteBtn) {
+//   //삭제 이미지
+//   let deleteImage = document.createElement("img");
+//   deleteImage.setAttribute("src", wasteImage);
+//   deleteImage.setAttribute("class", "waste");
+//   wasteBtn.appendChild(deleteImage);
+
+//   return deleteImage;
+// }
