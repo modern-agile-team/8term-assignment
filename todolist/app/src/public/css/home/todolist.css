@@ -1,0 +1,170 @@
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+* {
+  font-family: "Pretendard-Regular";
+  color: black;
+}
+
+body {
+  background-color: #dadada;
+  color: #272727;
+  display: grid;
+  font: 16px/40px "Open Sans", sans-serif;
+  margin: 0;
+  min-block-size: 100vh;
+  place-items: center;
+}
+
+form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
+tr {
+  line-height: 10px;
+  margin: 0px;
+}
+td {
+  margin: 0px;
+  vertical-align: bottom;
+  position: relative;
+  width: 40px;
+}
+hr {
+  margin: 0px;
+  line-height: 40px;
+}
+/*상단부분 css 태그*/
+:focus {
+  outline: none;
+}
+/*각 리스트 칸 호버*/
+.div {
+  position: relative;
+}
+.div:hover {
+  background-color: #c9c9c9;
+}
+
+/*버튼 호버 공용태그*/
+button:hover {
+  cursor: pointer;
+  transform: translateY(-50%) scale(1.2);
+}
+/*추가버튼 */
+.button-add {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  background-color: transparent;
+  border: none;
+}
+
+/*input칸 설정들*/
+textarea {
+  resize: none;
+  overflow: hidden;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+}
+/*add 입력칸*/
+.input-add {
+  width: 320px;
+  height: 23px;
+}
+
+/*메인 div*/
+.todolist {
+  position: relative;
+}
+/*리스트 요소들-------------------*/
+.hide {
+  display: none;
+}
+.button-edit {
+  position: absolute;
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+  background-image: url("../home/img/edit_button.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+  background-color: transparent;
+}
+.button-save {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 70px;
+  width: 35px;
+  height: 25px;
+  border: none;
+  background-color: transparent;
+  font-family: "Pretendard-Regular";
+  font-size: small;
+}
+.button-delete {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 40px;
+  width: 25px;
+  height: 25px;
+  background-image: url("../home/img/delete_button.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+  background-color: transparent;
+}
+.edit-hidden {
+  visibility: hidden;
+}
+/*input textarea칸*/
+.list-textarea {
+  margin-left: 35px;
+  margin-top: 20px;
+  width: 250px;
+  height: 23px;
+}
+/*체크박스 체크시 줄긋기*/
+.Cancellation-line {
+  text-decoration: line-through;
+  text-decoration-color: black;
+  color: rgb(130, 130, 130);
+}
+/*체크박스*/
+
+input[type="checkbox"] {
+  display: none;
+}
+/*off*/
+input[type="checkbox"] + label {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #707070;
+  border-radius: 20%;
+  cursor: pointer;
+}
+/*on*/
+input[type="checkbox"]:checked + label {
+  background-image: url(./img/checked.png);
+  background-color: #147cf8;
+  background-size: cover;
+}
