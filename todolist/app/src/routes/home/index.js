@@ -7,10 +7,10 @@ const ctrl = require("./home.ctrl");
 
 router.get("/", ctrl.output.hello);
 router.get("/login", ctrl.output.login);
-router.get("/login", ctrl.output.edit);
 
-router.post("/login", ctrl.process.login);
-router.delete("/login", ctrl.process.delete);
-router.patch("/login", ctrl.process.edit);
+router.get("/login/check", ctrl.process.check); // 조회
+router.post("/login", ctrl.process.login); // 추가
+router.delete("/login/delete", ctrl.process.delete); // 삭제
+router.patch("/login", ctrl.process.edit); // 수정
 
 module.exports = router;

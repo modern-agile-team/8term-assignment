@@ -7,8 +7,14 @@ class List {
     this.body = body;
   }
 
-  async login() {
+  async check() {
     //조회
+    const response = await ListStorage.getListInfo();
+    return response;
+  }
+
+  async login() {
+    //추가
     const client = this.body;
     const { description } = await ListStorage.getListInfo(client.description);
     // 강의에서는 내가 입력한 데이터에 해당하는 id 비밀번호

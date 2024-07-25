@@ -10,13 +10,17 @@ const output = {
   login: (req, res) => {
     res.render("home/login");
   },
-
-  edit: (req, res) => {
-    res.render("home/login");
-  },
 };
 
 const process = {
+  check: async (req, res) => {
+    // 조회
+    const list = new List(req.body);
+    const response = await list.check();
+
+    return res.json(response);
+  },
+
   login: async (req, res) => {
     const list = new List(req.body);
     const response = await list.login();

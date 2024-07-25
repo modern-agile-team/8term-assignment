@@ -1,21 +1,45 @@
 "use strict";
+window.onload = async function () {
+  let A = await check();
+  console.log(A[0].id);
+  startlist(A);
+};
 
 const description = document.querySelector("#description"),
-  plusImage = document.querySelector("#plusImage"),
-  deleteButton = document.getElementById("rmImg"),
+  plusImg = document.querySelector("#plusImg"),
   newlistbox = document.querySelector("#newlistbox");
 
-plusImage.addEventListener("click", login);
-deleteButton.addEventListener("click", remove);
+plusImg.addEventListener("click", login);
 //editButton.addEventListener("click", edit);
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    if (document.activeElement.id === "plusImage") {
+    if (document.activeElement.id === "plusImg") {
       login(event);
     }
   }
 });
+
+async function check() {
+  // 조회
+  let a = fetch("/login/check", {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res) {
+        console.log(res);
+        return res;
+      } else {
+        alert(res.msg);
+      }
+    })
+    .catch((err) => {
+      console.error("에 러 발 생 ; ;");
+    });
+
+  return a;
+}
 
 function login() {
   const req = {
@@ -70,9 +94,13 @@ function edit() {
     });
 }
 
-function remove() {
+function remove(listInfo) {
+  const req = {
+    id: i,
+  };
+  console.log("asdfsdaf");
   // 삭제
-  fetch("/login", {
+  fetch("/login/delete", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -92,36 +120,44 @@ function remove() {
     });
 }
 
-function addElement() {
+function startlist(listInfo) {
+  //조회
   let newlistbox = document.getElementById("newlistbox");
 
-  let newElement = document.createElement("div");
-  document.getElementById("newlistbox").appendChild(newElement);
-  newElement.innerHTML = `<div id='newsmall' class='newsmall'><input type="checkbox" id="checkbox" class="checkbox"><span class="description">${description.value}</span>
-  <input type="image" class="editImg" id="edit" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png"onclick="">
-  <input type="image" class="rmImg" id="rmImg" src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/trash-can-256.png"onclick="">
-  </div>`;
-  // newlist.prepend(document.createTextNode(description.value));
-  newlistbox.appendChild(newElement);
+  console.log(listInfo.length);
+  for (let i = 0; i < listInfo.length; i++) {
+    let newElement = document.createElement("div");
 
-  newlistbox.style.height = newlist.scrollHeight + "px";
+    newElement.classList.add("newsmall");
+
+    newElement.innerHTML = `
+    <input type="checkbox" id="checkbox" class="checkbox">
+    <span class="description">${listInfo[i].description}</span>
+    <input type="image" class="editImg" id="" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" onclick="">
+    <input type="image" class="rmImg" id="" src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/trash-can-256.png" onclick="">`;
+    newlistbox.prepend(newElement);
+    console.log(newElement);
+  }
+}
+
+function addElement() {
+  //추가
+  let newlistbox = document.getElementById("newlistbox");
+  let newElement = document.createElement("div");
+
+  newElement.classList.add("newsmall");
+  newElement.innerHTML = `
+    <input type="checkbox" id="checkbox" class="checkbox">
+    <span class="description">${description.value}</span>
+    <input type="image" class="editImg" id="editImg" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" onclick="">
+    <input type="image" class="rmImg" id="rmImg" src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/trash-can-256.png" onclick="">`;
+  // newlist.prepend(document.createTextNode(description.value));
+  newlistbox.prepend(newElement);
+  // let rmImg = document.querySelector("#rmImg");
+  // rmImg.addEventListener("click", remove);
+
+  //newlistbox.style.height = newlist.scrollHeight + "px";
+
   description.value = "";
   // 입력 필드 초기화
 }
-// function InputValue(event) {
-//   event.preventDefault(); // 폼 제출을 막기 위해 이벤트 기본 동작 방지
-//   let description = document.getElementById("description").value;
-//   if (description) {
-//     addElement(description);
-//   } else {
-//     alert("입력하세요");
-//   }
-// }
-
-// document.getElementById("imageForm").addEventListener("submit", InputValue);
-
-// function addElement(description) {
-//   let newElement = document.createElement("p");
-//   newElement.descriptionContent = description;
-//   document.getElementById("result").appendChild(newElement);
-// }

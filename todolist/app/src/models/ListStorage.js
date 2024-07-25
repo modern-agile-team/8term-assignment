@@ -19,7 +19,7 @@ class ListStorage {
   //   return lists;
   // }
 
-  static getListInfo(description) {
+  static getListInfo() {
     return new Promise((resolve, reject) => {
       const query = "SELECT * FROM lists";
       db.query(query, (err, data) => {
