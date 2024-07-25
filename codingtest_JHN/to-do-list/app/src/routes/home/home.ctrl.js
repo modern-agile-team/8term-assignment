@@ -1,14 +1,22 @@
 "use strict";
 
-const home = (req, res) => {
-  res.render("home/index");
+const output = {
+  home: (req, res) => {
+    res.render("home/index");
+  },
+
+  todolist: (req, res) => {
+    res.render("home/todolist");
+  },
 };
 
-const todolist = (req, res) => {
-  res.render("home/todolist");
+const process = {
+  todolist: (req, res) => {
+    const id = req.body.id;
+  },
 };
 
 module.exports = {
-  home,
-  todolist,
+  output,
+  process,
 };
