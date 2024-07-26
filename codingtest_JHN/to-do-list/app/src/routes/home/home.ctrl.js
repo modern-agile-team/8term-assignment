@@ -12,8 +12,7 @@ const output = {
 
 const process = {
   todolist: (req, res) => {
-    const id = req.body.id;
-    console.log(id);
+    const content = req.body.content;
   },
 };
 

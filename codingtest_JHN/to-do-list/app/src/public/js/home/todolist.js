@@ -6,8 +6,9 @@ const todo = document.querySelector("#id"),
 addBtn.addEventListener("click", todolist);
 
 function todolist() {
+  console.log(todoInput.id, 12312);
   const req = {
-    id: todoInput.value,
+    content: todoInput.value,
   };
 
   console.log(req);
@@ -19,7 +20,18 @@ function todolist() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(req),
-  });
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.success) {
+        location.href = "/todolist";
+      } else {
+        alert(res.msg);
+      }
+    })
+    .catch((err) => {
+      console.error("할 일 작성 중 에러 발생");
+    });
 }
 
 function keyCodeCheck() {
@@ -48,4 +60,8 @@ function createTodo() {
   todoList.appendChild(newLi);
 
   todoInput.value = "";
+
+  newBtn.addEventListener("click", () => {
+    newLi.classList.toggle("complete"); //toggle 형태로 li에 complete클래스명이 붙도록
+  });
 }
