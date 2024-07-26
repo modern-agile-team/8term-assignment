@@ -3,23 +3,8 @@
 const db = require("../config/db");
 
 class ListStorage {
-  // static #getListInfo(data, description) {
-  //   const lists = JSON.parse(data);
-  //   const idx = lists.description.indexOf(description);
-  //   const listKeys = Object.keys(lists);
-  //   const listInfo = listKeys.reduce((newList, info) => {
-  //     newList[info] = lists[info][idx];
-  //     return newList;
-  //   }, {});
-  //   return listInfo;
-  // }
-
-  // static #getLists(data) {
-  //   const lists = JSON.parse(data);
-  //   return lists;
-  // }
-
   static getListInfo() {
+    //조회
     return new Promise((resolve, reject) => {
       const query = "SELECT * FROM lists";
       db.query(query, (err, data) => {
@@ -30,15 +15,17 @@ class ListStorage {
   }
 
   static async save(listInfo) {
+    // 추가
+    console.log(listInfo.description);
     return new Promise((resolve, reject) => {
       const query =
         "INSERT INTO lists(id, description, is_check) VALUES(?, ?, ?);";
       db.query(
         query,
         [listInfo.id, listInfo.description, listInfo.is_check],
-        (err) => {
+        (err, data) => {
           if (err) reject(err);
-          resolve({ success: true });
+          resolve(data);
         }
       );
     });
@@ -46,6 +33,7 @@ class ListStorage {
 
   static async delete(listInfo) {
     return new Promise((resolve, reject) => {
+      console.log(listInfo);
       const { id } = listInfo;
       const query = "DELETE FROM lists WHERE id = ?;";
       db.query(query, [id], (err) => {

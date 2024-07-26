@@ -104,7 +104,7 @@
   flex-grow: 1;
 }
 
-.rmImg {
+.rmbtn {
   width: 21.94px;
   height: 21.88px;
   gap: 0px;
@@ -113,6 +113,13 @@
   border: none;
   position: relative;
   margin-left: 10px;
+  padding: 0; /* padding을 0으로 설정하여 이미지가 버튼 크기에 맞도록 */
+  background: none; /* 버튼의 기본 배경을 제거 */
+}
+.rmImg {
+  width: 21.94px;
+  height: 21.88px;
+  display: block; /* 이미지가 버튼의 크기에 맞도록 설정 */
 }
 
 .editImg {

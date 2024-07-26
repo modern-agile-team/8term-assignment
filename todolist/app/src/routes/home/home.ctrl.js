@@ -22,6 +22,8 @@ const process = {
   },
 
   login: async (req, res) => {
+    //추가
+    console.log(req.body);
     const list = new List(req.body);
     const response = await list.login();
 
@@ -29,6 +31,7 @@ const process = {
   },
 
   delete: async (req, res) => {
+    //삭제
     const list = new List(req.body);
     const response = await list.delete();
 
