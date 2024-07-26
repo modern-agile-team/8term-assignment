@@ -14,7 +14,7 @@ function todolist() {
   console.log(JSON.stringify(req));
 
   fetch("/todolist", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },

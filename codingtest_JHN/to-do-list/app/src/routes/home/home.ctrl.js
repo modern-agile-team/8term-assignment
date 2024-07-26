@@ -13,6 +13,7 @@ const output = {
 const process = {
   todolist: (req, res) => {
     const id = req.body.id;
+    console.log(id);
   },
 };
 
