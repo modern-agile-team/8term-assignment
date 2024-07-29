@@ -1,5 +1,7 @@
 "use strict";
 
+const TodoService = require("../../models/TodoService");
+
 const output = {
   home: (req, res) => {
     res.render("home/index");
@@ -11,8 +13,14 @@ const output = {
 };
 
 const process = {
-  todolist: (req, res) => {
-    const content = req.body.content;
+  todolist: async (req, res) => {
+    console.log(req.body);
+    const todoService = new TodoService(req.body);
+
+    console.log(todoService);
+    const response = await todoService.todolist();
+
+    // return res.json(response);
   },
 };
 

@@ -1,20 +1,20 @@
 "use strict";
 
-const { response } = require("express");
 const todoStorage = require("./TodoStorage");
 
 class TodoService {
   constructor(body) {
-    this.body = body;
+    this.content = body.content;
   }
 
   async todolist() {
-    const todo = this.body;
+    const content = this.content;
+
     try {
-      const todolist = await todoStorage.save(!!!);
+      const response = await todoStorage.save(content);
       return response;
     } catch (err) {
-      return { success: false, err} ;
+      return { success: false, err };
     }
   }
 }
