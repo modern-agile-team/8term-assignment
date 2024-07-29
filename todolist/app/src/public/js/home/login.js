@@ -7,22 +7,39 @@ window.onload = async function () {
 const description = document.querySelector("#description"),
   plusImg = document.querySelector("#plusImg"),
   newlistbox = document.querySelector("#newlistbox");
-// rmImg = document.getElementById(`${listInfo[i].id}`);
 
 plusImg.addEventListener("click", login);
-// rmImg.addEventListener("click", remove);
-//editButton.addEventListener("click", edit);
 
-// document.addEventListener("keydown", function (event) {
-//   if (event.key === "Enter") {
-//     if (document.activeElement.id === "plusImg") {
-//       login(event);
-//     }
-//   }
-// });
+function login() {
+  // 생성 요청
+  const req = {
+    description: description.value,
+  };
+
+  fetch("/login", {
+    // 생성 요청
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res) {
+        console.log(res);
+        addElement(res);
+      } else {
+        alert(res.msg);
+      }
+    })
+    .catch((err) => {
+      console.error("에 러 발 생 ; ;");
+    });
+}
 
 async function check() {
-  // 조회
+  // 조회 요청
   let listsInfo = fetch("/login/check", {
     method: "GET",
   })
@@ -43,14 +60,15 @@ async function check() {
   return listsInfo;
 }
 
-function login() {
+function edit(elementInfo) {
+  // 수정 요청
   const req = {
-    description: description.value,
+    id: elementInfo.id,
+    description: elementInfo.querySelector("span").textContent,
   };
 
-  fetch("/login", {
-    // 추가
-    method: "POST",
+  fetch("/login/edit", {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
@@ -58,8 +76,9 @@ function login() {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res) {
-        addElement(res);
+      if (res.success) {
+        console.log(req);
+        //그대로 저장하는 기능
       } else {
         alert(res.msg);
       }
@@ -69,35 +88,8 @@ function login() {
     });
 }
 
-// function edit() {
-//   const req = {
-//     description: description.value,
-//   };
-
-//   fetch("/login", {
-//     // 수정
-//     method: "PATCH",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(req),
-//   })
-//     .then((res) => res.json())
-//     .then((res) => {
-//       if (res.success) {
-//         console.log(description.value);
-//         //그대로 저장하는 기능
-//       } else {
-//         alert(res.msg);
-//       }
-//     })
-//     .catch((err) => {
-//       console.error("에 러 발 생 ; ;");
-//     });
-// }
-
 async function remove(listInfo) {
-  // 삭제
+  // 삭제 요청
   // const req = await check();
   console.log(listInfo.id);
   const req = {
@@ -126,7 +118,7 @@ async function remove(listInfo) {
 }
 
 function startlist(listInfo) {
-  //조회
+  // 조회 -> 서버 접속 시 기존 정보들을 보여줌
   let newlistbox = document.getElementById("newlistbox");
 
   for (let i = 0; i < listInfo.length; i++) {
@@ -137,29 +129,37 @@ function startlist(listInfo) {
 
     newElement.innerHTML = `
     <input type="checkbox" id="checkbox" class="checkbox">
-    <span class="description">${listInfo[i].description}</span>
-    <input type="image" class="editImg" id="" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" onclick="">
-    <button class="rmbtn" id="" onclick="removeElement(${listInfo[i].id})">
+    <span class="description" id="description">${listInfo[i].description}</span>
+    <button class="editBtn" id="${
+      "edit" + listInfo[i].id
+    }" onclick="editElement(${listInfo[i].id})">
+    <img class="editImg" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" alt="Edit">
+
+    <button class="rmBtn" id="${
+      "rm" + listInfo[i].id
+    }" onclick="removeElement(${listInfo[i].id})">
     <img class="rmImg" src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/trash-can-256.png" alt="Remove">
     </button>`;
+
     newlistbox.prepend(newElement);
   }
 }
 
 function addElement(listInfo) {
-  //추가
+  // 추가 -> 추가 버튼을 누르면 div 생성
   let newlistbox = document.getElementById("newlistbox");
   let newElement = document.createElement("div");
-  console.log(listInfo);
 
+  console.log(listInfo);
   newElement.classList.add("newsmall");
-  newElement.id = listInfo.Id;
+  newElement.id = listInfo.insertId;
 
   newElement.innerHTML = `
     <input type="checkbox" id="checkbox" class="checkbox">
-    <span class="description">${description.value}</span>
-    <input type="image" class="editImg" id="editImg" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" onclick="">
-    <button class="rmbtn" id="" onclick="removeElement(${listInfo.Id})">
+    <span class="description" id="description">${description.value}</span>
+    <button class="editBtn" id="" onclick="editElement(${listInfo.id})">
+    <img class="editImg" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" alt="Edit">
+    <button class="rmBtn" id="" onclick="removeElement(${listInfo.id})">
     <img class="rmImg" src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/trash-can-256.png" alt="Remove">
     </button>`;
   newlistbox.prepend(newElement);
@@ -170,9 +170,53 @@ function addElement(listInfo) {
   // 입력 필드 초기화
 }
 
-function removeElement(ElementId) {
-  console.log(ElementId);
-  const removeElement = document.getElementById(ElementId);
+function removeElement(elementId) {
+  // 삭제 -> 삭제 버튼을 누르면 remove 함수 실행
+  console.log(elementId);
+  const removeElement = document.getElementById(elementId);
   removeElement.remove();
   remove(removeElement);
+}
+
+function editElement(elementId) {
+  // 수정 -> 수정 버튼을 누르면 저장 글자로 바뀌고 내용 수정
+  let element = document.getElementById(`${elementId}`);
+  let description = element.querySelector("#description");
+  let editImg = element.querySelector(`#edit${elementId}`);
+
+  let currentText = description.textContent;
+
+  const inputField = document.createElement("input");
+  inputField.type = "text";
+  inputField.value = currentText;
+  inputField.id = "description";
+  inputField.className = "description";
+
+  element.replaceChild(inputField, description);
+  // span을 input으로
+
+  editImg.innerHTML = `저장`;
+  editImg.onclick = () => saveEdit(elementId);
+}
+
+function saveEdit(elementId) {
+  // 저장 버튼을 누르면 수정 이미지로 바뀜
+  const element = document.getElementById(`${elementId}`);
+  const inputField = element.querySelector("#description");
+  let editImg = element.querySelector(`#edit${elementId}`);
+
+  const newText = inputField.value;
+
+  const spanField = document.createElement("span");
+  spanField.className = "description";
+  spanField.id = "description";
+  spanField.textContent = newText;
+
+  element.replaceChild(spanField, inputField);
+  // input을 span으로
+
+  edit(element);
+
+  editImg.innerHTML = `<img class="editImg" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" alt="Edit">`;
+  editImg.onclick = () => editElement(elementId);
 }

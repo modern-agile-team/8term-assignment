@@ -16,7 +16,6 @@ class ListStorage {
 
   static async save(listInfo) {
     // 추가
-    console.log(listInfo.description);
     return new Promise((resolve, reject) => {
       const query =
         "INSERT INTO lists(id, description, is_check) VALUES(?, ?, ?);";
@@ -32,6 +31,7 @@ class ListStorage {
   }
 
   static async delete(listInfo) {
+    // 삭제
     return new Promise((resolve, reject) => {
       console.log(listInfo);
       const { id } = listInfo;
@@ -44,6 +44,7 @@ class ListStorage {
   }
 
   static async editsave(listInfo) {
+    // 수정
     return new Promise((resolve, reject) => {
       const query =
         "UPDATE lists SET description = ?, is_check = ? WHERE id = ?;";
