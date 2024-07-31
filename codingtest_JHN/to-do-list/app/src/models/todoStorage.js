@@ -28,7 +28,6 @@ class ToDoStorage {
   }
 
   static delete(no) {
-    // console.log(no);
     return new Promise((resolve, reject) => {
       const query = "DELETE FROM lists WHERE no = ?;";
       db.query(query, [no], (err) => {

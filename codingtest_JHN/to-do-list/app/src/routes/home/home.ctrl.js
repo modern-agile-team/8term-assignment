@@ -30,11 +30,9 @@ const process = {
     }
   },
 
-  ////////////////////////////////////
   delLists: async (req, res) => {
     try {
       const listno = req.params.no;
-      console.log(typeof req.params.no);
       const todoService = new TodoService();
       const response = await todoService.delete(listno);
       return res.json(response);
@@ -42,12 +40,13 @@ const process = {
       return res.json({ success: false, error });
     }
   },
-  /////////////////////////////////////
 
   updateLists: async (req, res) => {
     try {
-      const todoService = new TodoService(req.body);
-      const response = await todoService.update();
+      const listno = req.params.no;
+      const newContent = req.body.newContent;
+      const todoService = new TodoService();
+      const response = await todoService.update(listno, newContent);
       return res.json(response);
     } catch (error) {
       console.error(error);

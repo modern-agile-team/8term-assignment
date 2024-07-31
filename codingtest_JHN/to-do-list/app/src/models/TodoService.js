@@ -43,9 +43,7 @@ class TodoService {
     }
   }
 
-  async update() {
-    const listno = +req.params.no;
-    const newContent = this.newContent;
+  async update(listno, newContent) {
     try {
       const response = await todoStorage.update(listno, newContent);
       return response;
