@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/home/todolist.js" defer></script>
+    <link rel="stylesheet" href="/css/home/style.css" />
+    <title>To do list</title>
+  </head>
+
+  <body>
+    <div class="todo container">
+      <h1>To Do List</h1>
+      <input
+        id="todoInput"
+        type="text"
+        placeholder="할 일을 입력하십시오"
+        onclick="keyCodeCheck()"
+      />
+      <button type="button" id="addBtn">add<span></span><span> </span></button>
+    </div>
+    <ul id="todoList"></ul>
+  </body>
+</html>
