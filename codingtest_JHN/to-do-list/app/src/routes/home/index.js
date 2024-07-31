@@ -4,11 +4,13 @@ const express = require("express");
 const router = express.Router();
 const ctrl = require("./home.ctrl");
 
-router.get("/", ctrl.output.todolist);
+router.get("/", ctrl.output.home);
 
 //back
-router.post("/todolist", ctrl.process.todolist);
-router.get("/todolist", ctrl.inputtable.todolist);
+router.post("/lists", ctrl.process.createlist);
+router.get("/lists", ctrl.process.getlists);
+router.delete("/lists/:no", ctrl.process.delLists);
+router.patch("/lists/:no", ctrl.process.updateLists);
 
 //
 module.exports = router;
