@@ -143,3 +143,7 @@
   height: 21.88px;
   display: block;
 }
+
+.line {
+  text-decoration: line-through;
+}

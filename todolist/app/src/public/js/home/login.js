@@ -26,11 +26,12 @@ function login() {
   })
     .then((res) => res.json())
     .then((res) => {
+      console.log(res);
       if (res) {
         console.log(res);
         addElement(res);
       } else {
-        alert(res.msg);
+        alert("내용을 입력하세요.");
       }
     })
     .catch((err) => {
@@ -128,8 +129,12 @@ function startlist(listInfo) {
     newElement.id = listInfo[i].id;
 
     newElement.innerHTML = `
-    <input type="checkbox" id="checkbox" class="checkbox">
-    <span class="description" id="description">${listInfo[i].description}</span>
+    <input type="checkbox" id="ch${
+      listInfo[i].id
+    }" class="checkbox" onchange="checkBoxLine('${listInfo[i].id}')">
+    <span class="description" id="description${listInfo[i].id}">${
+      listInfo[i].description
+    }</span>
     <button class="editBtn" id="${
       "edit" + listInfo[i].id
     }" onclick="editElement(${listInfo[i].id})">
@@ -155,11 +160,11 @@ function addElement(listInfo) {
   newElement.id = listInfo.insertId;
 
   newElement.innerHTML = `
-    <input type="checkbox" id="checkbox" class="checkbox">
-    <span class="description" id="description">${description.value}</span>
-    <button class="editBtn" id="" onclick="editElement(${listInfo.id})">
+    <input type="checkbox" id="ch${listInfo.insertId}" class="checkbox">
+    <span class="description" id="description${listInfo.insertId}">${description.value}</span>
+    <button class="editBtn" id="edit${listInfo.insertId}" onclick="editElement(${listInfo.insertId})">
     <img class="editImg" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" alt="Edit">
-    <button class="rmBtn" id="" onclick="removeElement(${listInfo.id})">
+    <button class="rmBtn" id="" onclick="removeElement(${listInfo.insertId})">
     <img class="rmImg" src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/trash-can-256.png" alt="Remove">
     </button>`;
   newlistbox.prepend(newElement);
@@ -180,8 +185,8 @@ function removeElement(elementId) {
 
 function editElement(elementId) {
   // 수정 -> 수정 버튼을 누르면 저장 글자로 바뀌고 내용 수정
-  let element = document.getElementById(`${elementId}`);
-  let description = element.querySelector("#description");
+  const element = document.getElementById(`${elementId}`);
+  const description = element.querySelector(`#description${elementId}`);
   let editImg = element.querySelector(`#edit${elementId}`);
 
   let currentText = description.textContent;
@@ -189,7 +194,7 @@ function editElement(elementId) {
   const inputField = document.createElement("input");
   inputField.type = "text";
   inputField.value = currentText;
-  inputField.id = "description";
+  inputField.id = `description${elementId}`;
   inputField.className = "description";
 
   element.replaceChild(inputField, description);
@@ -202,7 +207,7 @@ function editElement(elementId) {
 function saveEdit(elementId) {
   // 저장 버튼을 누르면 수정 이미지로 바뀜
   const element = document.getElementById(`${elementId}`);
-  const inputField = element.querySelector("#description");
+  const inputField = element.querySelector(`#description${elementId}`);
   let editImg = element.querySelector(`#edit${elementId}`);
 
   const newText = inputField.value;
@@ -219,4 +224,16 @@ function saveEdit(elementId) {
 
   editImg.innerHTML = `<img class="editImg" src="https://cdn1.iconfinder.com/data/icons/material-core/18/create-256.png" alt="Edit">`;
   editImg.onclick = () => editElement(elementId);
+}
+
+function checkBoxLine(elementId) {
+  const checkbox = document.getElementById(`ch${elementId}`);
+  const description = document.getElementById(`description${elementId}`);
+  if (checkbox.checked) {
+    description.classList.add("line");
+    // edit(checkbox.checked);
+  } else {
+    description.classList.remove("line");
+    // edit(checkbox.checked);
+  }
 }
